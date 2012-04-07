@@ -1,6 +1,52 @@
 #include "rationalnumber.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+// find the greatest common divisor of two signed integers
+unsigned int greatestCommonDivisor (const unsigned int a, const unsigned int b){
+    if (b==0)
+        return a;
+    else
+        return greatestCommonDivisor(b, a%b);
+}
+
+// return the inverse of a rational number
+RationalNumber inverse(const RationalNumber number){
+    const RationalNumber result = {
+        number.denominator , number.nominator
+    };
+    return result;
+}
+
+// expand a rational number by the given factor
+RationalNumber expand(const RationalNumber number, const int factor){
+    const RationalNumber result = {
+        number.nominator * factor, number.denominator * factor
+    };
+    return result;
+}
+
+// normalize the sign of the rational number
+RationalNumber normalizeSign(const RationalNumber number) {
+    if (number.denominator < 0)
+        return expand(number, -1);
+    return number;
+}
+
+// return the normalized value of a rational number
+RationalNumber normalize(const RationalNumber number) {
+    const int gcdNumber = greatestCommonDivisor(abs(number.nominator), abs(number.denominator));
+    const RationalNumber result = {
+        number.nominator / gcdNumber, number.denominator / gcdNumber
+    };
+
+    return normalizeSign(result);
+}
+
+/*
+ * implementation of visible/public functions
+ */
 
 bool rnIsValid (const RationalNumber n) {
     return n.denominator != 0;
@@ -10,87 +56,49 @@ bool rnIsNaN (const RationalNumber n) {
     return !rnIsValid(n);
 }
 
-int greatestCommonDivisor (int a, int b){
-    if (b==0){
-        return a;
-    }
-    else {
-        return greatestCommonDivisor(b, a%b);
-    }
+bool rnEqual (const RationalNumber left, const RationalNumber right){
+    const RationalNumber normalizedL = normalize(left);
+    const RationalNumber normalizedR = normalize(right);
+    return (normalizedL.nominator == normalizedR.nominator)
+            && (normalizedL.denominator == normalizedR.denominator);
 }
 
-RationalNumber inverse(const RationalNumber number){
-    RationalNumber result = {
-        number.denominator , number.nominator
+bool rnLessThan (const RationalNumber left, const RationalNumber right) {
+    const RationalNumber normL = normalizeSign(expand(left, right.denominator));
+    const RationalNumber normR = normalizeSign(expand(right, left.denominator));
+    return normL.nominator < normR.nominator;
+}
+
+RationalNumber rnAdd (const RationalNumber left, const RationalNumber right){
+    const RationalNumber expandedL = expand(left, right.denominator);
+    const RationalNumber expandedR = expand(right, left.denominator);
+
+    // both numbers should have the same denominator now
+    assert (expandedL.denominator == expandedR.denominator);
+
+    const RationalNumber result = {
+        expandedL.nominator + expandedR.nominator,
+        expandedL.denominator
     };
     return result;
 }
 
-
-RationalNumber normalize(const RationalNumber number){
-    int gcdNumber = greatestCommonDivisor(abs(number.nominator), abs(number.denominator));
-    RationalNumber normalizedNumber = {
-        number.nominator / gcdNumber, number.denominator / gcdNumber
+RationalNumber rnSubtract (const RationalNumber left, const RationalNumber right){
+    const RationalNumber negativeR = {
+        right.nominator * -1, right.denominator
     };
-    return normalizedNumber;
+    return rnAdd(left, negativeR);
 }
 
-RationalNumber expand(const RationalNumber number, const int factor){
-
-    RationalNumber normalizedNumber = {
-        number.nominator * factor, number.denominator * factor
-    };
-    return normalizedNumber;
-}
-
-bool rnEqual (const RationalNumber number, const RationalNumber otherNumber){
-    RationalNumber normalizedRationalNumber = normalize(number);
-    RationalNumber normalizedOtherRationalNumber = normalize(otherNumber);
-    return (normalizedRationalNumber.nominator == normalizedOtherRationalNumber.nominator)
-            && (normalizedRationalNumber.denominator == normalizedOtherRationalNumber.denominator);
-}
-
-bool rnLessThan (const RationalNumber number, const RationalNumber otherNumber) {
-    RationalNumber normalizedRationalNumber = normalize(number);
-    RationalNumber normalizedOtherRationalNumber = normalize(otherNumber);
-    if (normalizedRationalNumber.denominator == normalizedOtherRationalNumber.denominator){
-        return normalizedRationalNumber.nominator < normalizedOtherRationalNumber.nominator;
-    }
-    normalizedRationalNumber = expand(normalizedRationalNumber, normalizedOtherRationalNumber.denominator);
-    normalizedOtherRationalNumber = expand(normalizedOtherRationalNumber, normalizedRationalNumber.denominator);
-    return normalizedRationalNumber.nominator < normalizedOtherRationalNumber.nominator;
-}
-
-RationalNumber rnAdd (const RationalNumber number, const RationalNumber otherNumber){
-    RationalNumber expandedNumber = expand(number, otherNumber.denominator);
-    RationalNumber expandedOtherNumber =expand(otherNumber, number.denominator);
-    RationalNumber result = {
-        expandedNumber.nominator + expandedOtherNumber.nominator,
-        expandedNumber.denominator
+RationalNumber rnMultiply (const RationalNumber left, const RationalNumber right) {
+    const RationalNumber result = {
+        left.nominator * right.nominator,
+        left.denominator * right.denominator
     };
     return result;
 }
 
-RationalNumber rnSubtract (const RationalNumber number, const RationalNumber otherNumber){
-    RationalNumber expandedNumber = expand(number, otherNumber.denominator);
-    RationalNumber expandedOtherNumber =expand(otherNumber, number.denominator);
-    RationalNumber result = {
-        expandedNumber.nominator - expandedOtherNumber.nominator,
-        expandedNumber.denominator
-    };
-    return result;
-}
-
-RationalNumber rnMultiply (const RationalNumber number, const RationalNumber otherNumber) {
-    RationalNumber result = {
-        number.nominator * otherNumber.nominator,
-        number.denominator *otherNumber.denominator
-    };
-    return result;
-}
-
-RationalNumber rnDivide (const RationalNumber number, const RationalNumber otherNumber) {
-    RationalNumber inversedOtherNumber = inverse(otherNumber);
-    RationalNumber result = rnMultiply(number, inversedOtherNumber );
-    return result;
+RationalNumber rnDivide (const RationalNumber left, const RationalNumber right) {
+    const RationalNumber inversedR = inverse(right);
+    return rnMultiply(left, inversedR);
 }
