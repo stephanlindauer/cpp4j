@@ -1,5 +1,5 @@
 /**
-  * Stephan Lindauer (s7.....)
+  * Stephan Lindauer (s761720)
   * Kai Nessig (s764304)
   */
 
