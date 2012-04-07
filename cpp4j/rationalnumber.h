@@ -1,3 +1,8 @@
+/**
+  * Stephan Lindauer (s7.....)
+  * Kai Nessig (s764304)
+  */
+
 #ifndef RATIONALNUMBER_H
 #define RATIONALNUMBER_H
 

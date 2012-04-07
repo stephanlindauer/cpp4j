@@ -1,3 +1,8 @@
+/**
+  * Stephan Lindauer (s7.....)
+  * Kai Nessig (s764304)
+  */
+
 #include "rationalnumber.h"
 #include <assert.h>
 #include <stdio.h>
