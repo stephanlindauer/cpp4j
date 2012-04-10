@@ -58,14 +58,24 @@ void testRNA(void)
     rnx = rnaGet (rna, 0);
     assert (rnEqual (rn2, rnx));
 
-    rnaDelete(rna);
+    rna = rnaDelete(rna);
     assert (rna == 0);
 
     rna = rnaCreate (1);
+    assert (rnaSize(rna) == 0);
 
     rnaAdd (rna, rn1);
+    assert (rnaSize(rna) == 1);
+    assert (rnaCapacity(rna) == 1);
+
     rnaAdd (rna, rn2);
+    assert (rnaSize(rna) == 2);
+    assert (rnaCapacity(rna) == 101);
+
     rnaAdd (rna, rn3);
+    assert (rnaSize(rna) == 3);
+    assert (rnaCapacity(rna) == 101);
+
     rnaAdd (rna, rn4);
     rnaAdd (rna, rn5);
     rnaAdd (rna, rn6);
@@ -73,25 +83,39 @@ void testRNA(void)
     rnaAdd (rna, rn8);
 
     assert (rnaSize(rna) == 8);
-    assert (rnaCapacity(rna) == wantedCapacity + 1);
 
-    rnaResize(rna, 4);
+    rnaResize(rna, 4); // remaining elements: 0, 1, 2, 3
     assert (rnaSize(rna) == 4);
     assert (rnaCapacity(rna) == 4);
 
-    rnaSet(rna, rn6, 6); // should increase size to 6, 5th element should be initialized to (0|1)
-    rnx = rnaGet (rna, 5);
+    // 0, 1, 2, 3 => as before
+    // new elements: 4, 5, 6
+    // 4 => rnn
+    // 5 => rnn
+    // 6 => rn6
+    rnaSet(rna, rn6, 6);
 
-    assert (rnaSize(rna) == 6);
-    assert (rnaCapacity(rna) == 14);
-
+    rnx = rnaGet (rna, 4);
     assert (rnEqual(rnx, rnn));
 
-    rnaRemove(rna, 3, 5); // remove 4th, 5th, 6th element; 7th element becomes 4th element
-    rnx = rnaGet (rna, 3);
-    assert (rnaSize(rna) == 4);
-    assert (rnaCapacity(rna) == 14);
+    rnx = rnaGet (rna, 5);
+    assert (rnEqual(rnx, rnn));
+
+    rnx = rnaGet (rna, 6);
     assert (rnEqual(rnx, rn6));
+    assert (rnaSize(rna) == 7);
+    assert (rnaCapacity(rna) == 7);
+
+
+    // remove elements: 3, 4, 5
+    // elements 6.. become elements 3..
+    rnaRemove(rna, 3, 5);
+
+    rnx = rnaGet (rna, 3);
+    assert (rnEqual(rnx, rn6));
+
+    assert (rnaSize(rna) == 4);
+    assert (rnaCapacity(rna) == 7);
 
     printf(" successful!\n");
 }

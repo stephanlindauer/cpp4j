@@ -5,19 +5,19 @@
 
 struct RationalNumberArray;
 
-RationalNumberArray* rnaCreate(const unsigned int size);
+RationalNumberArray * rnaCreate(const unsigned int size);
 
-void rnaDelete(RationalNumberArray * rna);
+RationalNumberArray * rnaDelete(RationalNumberArray * rna);
 
-void rnaResize(const RationalNumberArray * rna, const unsigned int newSize);
+void rnaResize(RationalNumberArray * rna, const unsigned int newSize);
 
 unsigned int rnaSize(const RationalNumberArray * rna);
 
 unsigned int rnaCapacity(const RationalNumberArray * rna);
 
-void rnaAdd(const RationalNumberArray * rna, const RationalNumber newRationalNumber);
+void rnaAdd(RationalNumberArray * rna, const RationalNumber newRationalNumber);
 
-void rnaSet(const RationalNumberArray * rna, const RationalNumber rationalNumber, const unsigned int position);
+void rnaSet(RationalNumberArray * rna, const RationalNumber rationalNumber, const unsigned int position);
 
 RationalNumber rnaGet(const RationalNumberArray * rna, const unsigned int position);
 
