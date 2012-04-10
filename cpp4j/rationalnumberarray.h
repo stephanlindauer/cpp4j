@@ -21,7 +21,7 @@ void rnaSet(const RationalNumberArray * rna, const RationalNumber rationalNumber
 
 RationalNumber rnaGet(const RationalNumberArray * rna, const unsigned int position);
 
-void rnaRemove(const RationalNumberArray * rna, const unsigned int from, const unsigned int to);
+void rnaRemove( RationalNumberArray * rna, const unsigned int from, const unsigned int to);
 
 
 

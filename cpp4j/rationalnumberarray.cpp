@@ -4,8 +4,8 @@
 
 struct RationalNumberArray{
     RationalNumber *data;
-    int size;
-    int capacity;
+    unsigned int size;
+    unsigned int capacity;
 };
 
 const RationalNumber nullRationalNumber = { 0, 1 };
@@ -34,7 +34,7 @@ void rnaDelete(RationalNumberArray * rna) {
 }
 
 void rnaResize(const RationalNumberArray * rna, const unsigned int newSize) {
-    return;
+
 }
 
 unsigned int rnaSize(const RationalNumberArray * rna) {
@@ -50,14 +50,28 @@ void rnaAdd(const RationalNumberArray * rna, const RationalNumber newRationalNum
 }
 
 void rnaSet(const RationalNumberArray * rna, const RationalNumber rationalNumber, const unsigned int position) {
-    return;
+    if(position >= rna->size){
+        rnaResize(rna, position);
+    }
+    rna->data[position] = rationalNumber;
 }
 
 RationalNumber rnaGet(const RationalNumberArray * rna, const unsigned int position) {
-    RationalNumber rn;
-    return rn;
+    return rna->data[position];
 }
 
-void rnaRemove(const RationalNumberArray * rna, const unsigned int from, const unsigned int to) {
-    return;
+void rnaRemove( RationalNumberArray * rna, const unsigned int from, const unsigned int to) {
+    unsigned int offset = to - from;
+
+    for( unsigned int i = from; i <= rna->capacity; i++){
+        if (i+offset <= rna->size){
+            rna->data[i] = rna->data[i+offset];
+        }
+    }
+
+    rna->size = rna->size - offset;
+
+    for (unsigned j = rna->size; j <= rna->capacity; j++){
+        rna->data[j] = nullRationalNumber;
+    }
 }
