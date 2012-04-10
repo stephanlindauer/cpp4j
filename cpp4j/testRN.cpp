@@ -1,7 +1,12 @@
+/*
+   Simple Unit Test for type RationalNumber
+*/
+
 #include <stdio.h>
 #include <assert.h>
 
 #include "rationalnumber.h"
+#include "testRNA.cpp"
 
 
 int main()
@@ -40,6 +45,8 @@ int main()
     assert( rnIsNaN(t4) );
 
     printf(" successful!\n");
+
+    testRNA();
 
     return 0;
 }

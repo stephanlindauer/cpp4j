@@ -3,8 +3,11 @@ CONFIG += console
 CONFIG -= qt
 
 SOURCES += testRN.cpp \
-    rationalnumber.cpp
+    rationalnumber.cpp \
+    testRNA.cpp \
+    rationalnumberarray.cpp
 
 HEADERS += \
-    rationalnumber.h
+    rationalnumber.h \
+    rationalnumberarray.h
 

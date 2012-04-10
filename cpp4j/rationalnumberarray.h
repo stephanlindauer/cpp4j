@@ -7,24 +7,21 @@ struct RationalNumberArray;
 
 RationalNumberArray* rnaCreate(const unsigned int size);
 
-void rnaDelete(RationalNumberArray* rna);
+void rnaDelete(RationalNumberArray * rna);
 
-RationalNumberArray* rnaResize(const unsigned int newSize);
+void rnaResize(const RationalNumberArray * rna, const unsigned int newSize);
 
-int rnaSize(RationalNumberArray* rna);
+unsigned int rnaSize(const RationalNumberArray * rna);
 
-int rnaCapacity(RationalNumberArray* rna);
+unsigned int rnaCapacity(const RationalNumberArray * rna);
 
-RationalNumberArray* rnaAdd(RationalNumber newRationalNumber );
+void rnaAdd(const RationalNumberArray * rna, const RationalNumber newRationalNumber);
 
-RationalNumberArray* rnaSet(RationalNumber rationalNumber, const unsigned int position );
+void rnaSet(const RationalNumberArray * rna, const RationalNumber rationalNumber, const unsigned int position);
 
-RationalNumberArray* rnaGet(const unsigned int position );
+RationalNumber rnaGet(const RationalNumberArray * rna, const unsigned int position);
 
-RationalNumberArray* rnaRemove(const unsigned int position );
-
-
-
+void rnaRemove(const RationalNumberArray * rna, const unsigned int from, const unsigned int to);
 
 
 
