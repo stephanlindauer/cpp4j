@@ -11,6 +11,13 @@
 
 const unsigned int wantedCapacity = 10;
 
+bool errorCBCalled = false;
+
+void myRNAErrorCallback(RationalNumberArray * rna) {
+    errorCBCalled = true;
+    assert (rnaError(rna) != rnaNoError);
+}
+
 void testRNA(void)
 {
 
@@ -116,6 +123,12 @@ void testRNA(void)
 
     assert (rnaSize(rna) == 4);
     assert (rnaCapacity(rna) == 7);
+
+    rnaSetErrorCallback(rna, &myRNAErrorCallback);
+
+    rnx = rnaGet(rna, 10);
+    assert (errorCBCalled == true);
+    assert (rnEqual(rnx, rnn));
 
     printf(" successful!\n");
 }
