@@ -77,7 +77,7 @@ RationalNumberArray * rnaCreate(const unsigned int size) {
 
 RationalNumberArray * rnaDelete(RationalNumberArray * rna) {
     if (rna == NULL)
-        return;
+        return NULL;
 
     if (rna->data != NULL) {
         // free the array
