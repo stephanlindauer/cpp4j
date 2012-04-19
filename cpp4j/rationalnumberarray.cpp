@@ -10,7 +10,6 @@ struct RationalNumberArray{
     rnaErrorCallback_t errorCallback;
 };
 
-const RationalNumber NULL_RATIONAL_NUMBER = { 0, 1 };
 const unsigned int INCREMENTATION = 100;
 
 void initializeWithNullRationalNumber(const RationalNumberArray * rna, const unsigned int from, const unsigned int to) {
@@ -30,6 +29,9 @@ void setError(RationalNumberArray * rna, const RNAErrorCode errorCode) {
 }
 
 void rnaAdd(RationalNumberArray * rna, const RationalNumber newRationalNumber) {
+    if (rna == NULL)
+        return;
+
     if (rna->size < rna->capacity) {
         rna->data[rna->size++] = newRationalNumber;
         setError(rna, rnaNoError);
@@ -44,6 +46,9 @@ void rnaAdd(RationalNumberArray * rna, const RationalNumber newRationalNumber) {
 }
 
 unsigned int rnaCapacity(const RationalNumberArray * rna) {
+    if (rna == NULL)
+        return 0;
+
     return rna->capacity;
 }
 
@@ -71,18 +76,31 @@ RationalNumberArray * rnaCreate(const unsigned int size) {
 }
 
 RationalNumberArray * rnaDelete(RationalNumberArray * rna) {
-    free(rna->data); rna->data = NULL;
-    free(rna); rna = NULL;
+    if (rna == NULL)
+        return;
+
+    if (rna->data != NULL) {
+        // free the array
+        free(rna->data);
+        rna->data = NULL;
+    }
+
+    // free the struct
+    free(rna);
+    rna = NULL;
+
     return rna;
 }
 
 RNAErrorCode rnaError(const RationalNumberArray * rna) {
+    if (rna == NULL)
+        return rnaInvalidArray;
+
     return rna->error;
 }
 
 RationalNumber rnaGet(RationalNumberArray * rna, const unsigned int position) {
     if (rna->data == NULL) {
-        setError(rna, rnaInvalidArray);
         return NULL_RATIONAL_NUMBER;
     }
 
@@ -96,7 +114,10 @@ RationalNumber rnaGet(RationalNumberArray * rna, const unsigned int position) {
 
 }
 
-void rnaRemove( RationalNumberArray * rna, const unsigned int from, const unsigned int to) {
+void rnaRemove(RationalNumberArray * rna, const unsigned int from, const unsigned int to) {
+    if (rna == NULL)
+        return;
+
     if (to < from) {
         setError(rna, rnaInvalidIndex);
         return;
@@ -104,21 +125,22 @@ void rnaRemove( RationalNumberArray * rna, const unsigned int from, const unsign
 
     unsigned int offset = (to - from) + 1;
 
-    for(unsigned int i = from; i < rna->capacity; i++){
-        if (i+offset <= rna->size){
+    // overwrite (from .. to) with subsequent elements;
+    for(unsigned int i = from; i < rna->capacity; i++)
+        if (i+offset <= rna->size)
             rna->data[i] = rna->data[i+offset];
-        }
-    }
+        else
+            break;
 
-    rna->size = rna->size - offset;
+    // calculate new size
+    rna->size = (rna->size > offset) ? rna->size - offset : 0;
 
     setError(rna, rnaNoError);
     initializeWithNullRationalNumber(rna, rna->size, rna->capacity);
 }
 
 void rnaResize(RationalNumberArray * rna, const unsigned int newSize) {
-    if (rna->size == newSize)
-        // nothing to do
+    if (rna->size == newSize) // nothing to do
         return;
 
     RationalNumber * newData = (RationalNumber*) realloc(rna->data, computeSizeForData(newSize));
@@ -137,9 +159,9 @@ void rnaResize(RationalNumberArray * rna, const unsigned int newSize) {
     if (oldData != newData) { // ptr changed
         rna->data = newData;
 
-        for (unsigned int i = 0; i < rna->size; i++) {
+        for (unsigned int i = 0; i < rna->size; i++)
             rna->data[i] = oldData[i];
-        }
+
         free(oldData);
     }
 
@@ -148,19 +170,31 @@ void rnaResize(RationalNumberArray * rna, const unsigned int newSize) {
     initializeWithNullRationalNumber(rna, rna->size, newSize);
 }
 
-void rnaSet(RationalNumberArray * rna, const RationalNumber rationalNumber, const unsigned int position) {
-    if(position > rna->size){
+void rnaSet(RationalNumberArray * rna, const unsigned int position, const RationalNumber rationalNumber) {
+    if (rna == NULL)
+        return;
+
+    if(position > rna->size)
         rnaResize(rna, position + 1);
-    }
+
 
     rna->data[position] = rationalNumber;
     rna->size = position+1;
 }
 
 unsigned int rnaSize(const RationalNumberArray * rna) {
+    if (rna == NULL)
+        return 0;
+
     return rna->size;
 }
 
 void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback) {
+    if (rna == NULL) {
+        if (callback != NULL)
+            callback (NULL);
+        return;
+    }
+
     rna->errorCallback = callback;
 }

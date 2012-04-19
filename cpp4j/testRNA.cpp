@@ -61,7 +61,7 @@ void testRNA(void)
     rnx = rnaGet (rna, 0);
     assert (rnEqual (rn1, rnx));
 
-    rnaSet (rna, rn2, 0);
+    rnaSet (rna, 0, rn2);
     rnx = rnaGet (rna, 0);
     assert (rnEqual (rn2, rnx));
 
@@ -100,7 +100,7 @@ void testRNA(void)
     // 4 => rnn
     // 5 => rnn
     // 6 => rn6
-    rnaSet(rna, rn6, 6);
+    rnaSet(rna, 6, rn6);
 
     rnx = rnaGet (rna, 4);
     assert (rnEqual(rnx, rnn));
@@ -129,6 +129,9 @@ void testRNA(void)
     rnx = rnaGet(rna, 10);
     assert (errorCBCalled == true);
     assert (rnEqual(rnx, rnn));
+
+    rnaRemove(rna, 0, 10);
+    assert (rnaSize(rna) == 0);
 
     printf(" successful!\n");
 }
