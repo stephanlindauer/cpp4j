@@ -62,6 +62,9 @@ bool rnIsNaN (const RationalNumber n) {
 }
 
 bool rnEqual (const RationalNumber left, const RationalNumber right){
+    if (rnIsNaN(left) || rnIsNaN(right))
+        return false;
+
     const RationalNumber normalizedL = normalize(left);
     const RationalNumber normalizedR = normalize(right);
     return (normalizedL.nominator == normalizedR.nominator)
@@ -69,12 +72,21 @@ bool rnEqual (const RationalNumber left, const RationalNumber right){
 }
 
 bool rnLessThan (const RationalNumber left, const RationalNumber right) {
+    if (rnIsNaN(left) || rnIsNaN(right))
+        return false;
+
     const RationalNumber normL = normalizeSign(expand(left, right.denominator));
     const RationalNumber normR = normalizeSign(expand(right, left.denominator));
     return normL.nominator < normR.nominator;
 }
 
 RationalNumber rnAdd (const RationalNumber left, const RationalNumber right){
+    if (rnIsNaN(left))
+        return right;
+
+    if (rnIsNaN(right))
+        return left;
+
     const RationalNumber expandedL = expand(left, right.denominator);
     const RationalNumber expandedR = expand(right, left.denominator);
 
@@ -89,6 +101,12 @@ RationalNumber rnAdd (const RationalNumber left, const RationalNumber right){
 }
 
 RationalNumber rnSubtract (const RationalNumber left, const RationalNumber right){
+    if (rnIsNaN(left))
+        return right;
+
+    if (rnIsNaN(right))
+        return left;
+
     const RationalNumber negativeR = {
         right.nominator * -1, right.denominator
     };

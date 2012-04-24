@@ -8,7 +8,6 @@
 #include "rationalnumber.h"
 #include "testRNA.cpp"
 
-
 int main()
 {
 
