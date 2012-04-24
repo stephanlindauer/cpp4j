@@ -97,7 +97,7 @@ RationalNumber rnAdd (const RationalNumber left, const RationalNumber right){
         expandedL.nominator + expandedR.nominator,
         expandedL.denominator
     };
-    return result;
+    return normalize(result);
 }
 
 RationalNumber rnSubtract (const RationalNumber left, const RationalNumber right){
@@ -118,7 +118,7 @@ RationalNumber rnMultiply (const RationalNumber left, const RationalNumber right
         left.nominator * right.nominator,
         left.denominator * right.denominator
     };
-    return result;
+    return normalize(result);
 }
 
 RationalNumber rnDivide (const RationalNumber left, const RationalNumber right) {
