@@ -59,13 +59,17 @@ namespace rnum {
 class CPP_RationalNumber {
 public :
     CPP_RationalNumber
-    (int nom, int denom): rn(nom,denom)
+    (int nom, int denom)
     {
+        rn.nominator = nom;
+        rn.denominator = denom;
     }
 
     CPP_RationalNumber
-    (int nom): rn(nom,1)
+    (int nom)
     {
+        rn.nominator = nom;
+        rn.denominator = 1;
     }
 
     CPP_RationalNumber& operator= (const int &right)
@@ -75,9 +79,9 @@ public :
         return *this;
     }
 
-    bool rnIsValid (void);
+    bool isValid (void);
 
-    bool rnIsNaN (void);
+    bool isNaN (void);
 
     bool operator==
     (const CPP_RationalNumber &right);

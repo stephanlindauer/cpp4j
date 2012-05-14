@@ -9,43 +9,43 @@
 #include <stdlib.h>
 
 
-bool rnum::CPP_RationalNumber::rnIsValid (void){
+bool rnum::CPP_RationalNumber::isValid (void){
     return rnIsValid(this->rn);
 }
 
-bool rnum::CPP_RationalNumber::rnIsNaN (void){
+bool rnum::CPP_RationalNumber::isNaN (void){
     return rnIsNaN(this->rn);
 }
 
 bool rnum::CPP_RationalNumber::operator==
 (const CPP_RationalNumber &right){
-    return rnEqual(this->rn,right->rn);
+    return rnEqual(this->rn,right.rn);
 }
 
 
 bool rnum::CPP_RationalNumber::operator<
 (const CPP_RationalNumber &right){
-    return rnLessThan(this->rn,right->rn);
+    return rnLessThan(this->rn,right.rn);
 }
 
 void rnum::CPP_RationalNumber::operator+
 (const CPP_RationalNumber &right){
-    return rnAdd(this->rn,right->rn);
+    this->rn = rnAdd(this->rn,right.rn);
 }
 
 void rnum::CPP_RationalNumber::operator-
 (const CPP_RationalNumber &right){
-    return rnSubtract(this->rn,right->rn);
+    this->rn = rnSubtract(this->rn,right.rn);
 }
 
 void rnum::CPP_RationalNumber::operator*
 (const CPP_RationalNumber &right){
-    return rnMultiply(this->rn,right->rn);
+    this->rn = rnMultiply(this->rn,right.rn);
 }
 
 void rnum::CPP_RationalNumber::operator/
 (const CPP_RationalNumber &right){
-    return rnDivide(this->rn,right->rn);
+    this->rn = rnDivide(this->rn,right.rn);
 }
 
 
