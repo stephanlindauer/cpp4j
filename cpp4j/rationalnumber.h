@@ -55,5 +55,50 @@ RationalNumber rnMultiply
 RationalNumber rnDivide
 (const RationalNumber left,
  const RationalNumber right);
+namespace rnum {
+class CPP_RationalNumber {
+public :
+    CPP_RationalNumber
+    (int nom, int denom): rn(nom,denom)
+    {
+    }
 
+    CPP_RationalNumber
+    (int nom): rn(nom,1)
+    {
+    }
+
+    CPP_RationalNumber& operator= (const int &right)
+    {
+        this->rn.nominator = right;
+        this->rn.denominator = 1;
+        return *this;
+    }
+
+    bool rnIsValid (void);
+
+    bool rnIsNaN (void);
+
+    bool operator==
+    (const CPP_RationalNumber &right);
+
+    bool operator<
+    (const CPP_RationalNumber &right);
+
+    void operator+
+    (const CPP_RationalNumber &right);
+
+    void operator-
+    (const CPP_RationalNumber &right);
+
+    void operator*
+    (const CPP_RationalNumber &right);
+
+    void operator/
+    (const CPP_RationalNumber &right);
+
+private:
+    RationalNumber rn;
+};
+}
 #endif // RATIONALNUMBER_H
