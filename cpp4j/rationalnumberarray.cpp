@@ -198,3 +198,6 @@ void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback
 
     rna->errorCallback = callback;
 }
+
+
+

@@ -60,4 +60,37 @@ RNAErrorCode rnaError(const RationalNumberArray * rna);
 // callback does not equal NULL
 void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback);
 
+
+namespace rnum{
+class CPP_RationalNumberArray{
+public :
+
+    CPP_RationalNumberArray (const unsigned int size = 10);
+
+    ~CPP_RationalNumberArray (void);
+
+    void resize(const unsigned int newSize);
+
+    unsigned int size(void);
+
+    unsigned int capacity(void);
+
+    void add(const CPP_RationalNumber newRationalNumber);
+
+    void set(const unsigned int position, const CPP_RationalNumber rationalNumber);
+
+    CPP_RationalNumber get( const unsigned int position);
+
+    void remove( const unsigned int from, const unsigned int to);
+
+    //RNAErrorCode rnaError(const RationalNumberArray * rna);
+    //void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback);
+
+private:
+    RationalNumberArray * rna;
+
+};
+}
+
+
 #endif // RATIONALNUMBERARRAY_H
