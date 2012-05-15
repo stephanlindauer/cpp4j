@@ -335,6 +335,31 @@ void rnum::CPP_RationalNumberArray::setError(const RNAErrorCode errorCode) {
         this->m_errorCallback (*this);
 }
 
+rnum::CPP_RationalNumberArray rnum::CPP_RationalNumberArray::operator=
+(const rnum::CPP_RationalNumberArray &right) {
+    if( this == &right ){
+        return *this;
+    }
+    this->m_size = right.m_size;
+    this->m_capacity = right.m_capacity;
+    delete[] this->m_data;
+    this->m_data = new CPP_RationalNumber[this->m_capacity];
+    for(unsigned int i = 0; i < right.m_size; i++){
+        this->m_data[i]= right.m_data[i];
+    }
+    return *this;
+}
+
+const rnum::CPP_RationalNumber& rnum::CPP_RationalNumberArray::operator[]
+(const unsigned int &index) const {
+    return this->m_data[ index];
+}
+
+rnum::CPP_RationalNumber& rnum::CPP_RationalNumberArray::operator[]
+(const unsigned int &index)  {
+    return this->m_data[index];
+}
+
 
 /*void rnum::CPP_RationalNumberArray::initializeWithNullRationalNumber(const unsigned int from, const unsigned int to) {
     for (unsigned int i = from; i < to; i++) {

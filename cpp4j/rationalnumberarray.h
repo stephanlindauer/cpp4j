@@ -94,6 +94,17 @@ public :
     RNAErrorCode rnaError(void) const;
     void rnaSetErrorCallback (const cppErrorCallback_t callback);
 
+    CPP_RationalNumberArray operator=
+    (const CPP_RationalNumberArray &right);
+
+    const CPP_RationalNumber& operator[]
+    (const unsigned int &index) const;
+
+    CPP_RationalNumber& operator[]
+    (const unsigned int &index) ;
+
+
+
 private:
 
     void setError(const RNAErrorCode errorCode);
@@ -108,6 +119,10 @@ private:
 
     cppErrorCallback_t m_errorCallback;
 
+    bool operator==
+    (const RationalNumberArray & rna) const{
+        return false;
+    }
 };
 }
 
