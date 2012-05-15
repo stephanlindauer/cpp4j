@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 bool rnum::CPP_RationalNumber::isValid (void){
     return rnIsValid(this->rn);
 }
@@ -21,7 +20,6 @@ bool rnum::CPP_RationalNumber::operator==
 (const rnum::CPP_RationalNumber &right){
     return rnEqual(this->rn,right.rn);
 }
-
 
 bool rnum::CPP_RationalNumber::operator<
 (const rnum::CPP_RationalNumber &right){
@@ -43,14 +41,13 @@ const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator-
 }
 
 const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator -()
- const{
+const{
     rnum::CPP_RationalNumber result = *this;
     const RationalNumber kaiSucks = { -1,1};
     result.rn = rnMultiply( this->rn , kaiSucks  );
     return result;
 
 }
-
 
 const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator*
 (const rnum::CPP_RationalNumber &right) const{
@@ -59,6 +56,11 @@ const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator*
     return result;
 }
 
+rnum::CPP_RationalNumber& rnum::CPP_RationalNumber::operator*=
+(const rnum::CPP_RationalNumber &right){
+    this->rn = rnMultiply(this->rn, right.rn);
+    return *this;
+}
 
 const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator/
 (const rnum::CPP_RationalNumber &right) const{
@@ -66,7 +68,6 @@ const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator/
     result.rn = rnDivide(this->rn, right.rn);
     return result;
 }
-
 
 
 // find the greatest common divisor of two signed integers

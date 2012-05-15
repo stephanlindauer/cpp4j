@@ -68,16 +68,16 @@ public :
     }
 
     CPP_RationalNumber
-    ()
+    (int nom)
     {
-        rn.nominator = 0;
+        rn.nominator = nom;
         rn.denominator = 1;
     }
 
     CPP_RationalNumber
-    (int nom)
+    ()
     {
-        rn.nominator = nom;
+        rn.nominator = 0;
         rn.denominator = 1;
     }
 
@@ -110,6 +110,10 @@ public :
     const CPP_RationalNumber operator*
     (const CPP_RationalNumber &right) const;
 
+    CPP_RationalNumber & operator*=
+    (const CPP_RationalNumber &right);
+
+
     const CPP_RationalNumber operator/
     (const CPP_RationalNumber &right) const;
 
@@ -120,5 +124,15 @@ public :
 private:
     RationalNumber rn;
 };
+
+CPP_RationalNumber operator*(const int left, const CPP_RationalNumber &right){
+    return CPP_RationalNumber(left) * right;
+}
+
+CPP_RationalNumber operator/( const CPP_RationalNumber &left, const int right){
+    return left / CPP_RationalNumber(right);
+}
+
 }
 #endif // RATIONALNUMBER_H
+

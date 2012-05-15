@@ -18,16 +18,16 @@ void testCPP_RN(void)
     x = -f + CPP_RationalNumber(3,4);
     a.toString();
     assert( a == CPP_RationalNumber( 40 , 17 ));
-
     assert( x == CPP_RationalNumber( -59 , 12 ));
 
 
 
     int i=5, j=4;
-   /*RationalNumber a(1,2), b(7,3);
-    RationalNumber aa = i*a, bb = b/j;
-    RationalNumber ia (i);
-    RationalNumber ja = j;*/
+    CPP_RationalNumber g(1,2), h(7,3);
+    //CPP_RationalNumber aa = i*g, bb = h/j;
+    CPP_RationalNumber ia (i);
+    CPP_RationalNumber ja = j;
+
 
 
 
