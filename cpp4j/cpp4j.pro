@@ -2,10 +2,11 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
-SOURCES += testRN.cpp \
-    rationalnumber.cpp \
+SOURCES += rationalnumber.cpp \
+    rationalnumberarray.cpp \
     testRNA.cpp \
-    rationalnumberarray.cpp
+    testCPP_RN.cpp \
+    testRN.cpp
 
 HEADERS += \
     rationalnumber.h \

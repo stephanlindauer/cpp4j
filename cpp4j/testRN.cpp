@@ -8,6 +8,8 @@
 #include "rationalnumber.h"
 #include "testRNA.cpp"
 
+#include "testCPP_RN.cpp"
+
 int main()
 {
 
@@ -46,6 +48,8 @@ int main()
     printf(" successful!\n");
 
     testRNA();
+
+   testCPP_RN();
 
     return 0;
 }
