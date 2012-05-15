@@ -60,11 +60,12 @@ RationalNumber rnDivide
 namespace rnum {
 class CPP_RationalNumber {
 public :
+
     CPP_RationalNumber
-    (int nom, int denom)
+    ()
     {
-        rn.nominator = nom;
-        rn.denominator = denom;
+        rn.nominator = 0;
+        rn.denominator = 1;
     }
 
     CPP_RationalNumber
@@ -74,29 +75,22 @@ public :
         rn.denominator = 1;
     }
 
-    CPP_RationalNumber
-    ()
+    explicit CPP_RationalNumber
+    (int nom, int denom)
     {
-        rn.nominator = 0;
-        rn.denominator = 1;
+        rn.nominator = nom;
+        rn.denominator = denom;
     }
 
-    CPP_RationalNumber& operator= (const int &right)
-    {
-        this->rn.nominator = right;
-        this->rn.denominator = 1;
-        return *this;
-    }
+    bool isValid (void) const;
 
-    bool isValid (void);
-
-    bool isNaN (void);
+    bool isNaN (void) const;
 
     bool operator==
-    (const CPP_RationalNumber &right);
+    (const CPP_RationalNumber &right) const;
 
     bool operator<
-    (const CPP_RationalNumber &right);
+    (const CPP_RationalNumber &right) const;
 
     const CPP_RationalNumber operator+
      (const CPP_RationalNumber &right) const;
@@ -113,7 +107,6 @@ public :
     CPP_RationalNumber & operator*=
     (const CPP_RationalNumber &right);
 
-
     const CPP_RationalNumber operator/
     (const CPP_RationalNumber &right) const;
 
@@ -125,13 +118,13 @@ private:
     RationalNumber rn;
 };
 
-CPP_RationalNumber operator*(const int left, const CPP_RationalNumber &right){
+/*CPP_RationalNumber operator*(const int left, const CPP_RationalNumber &right){
     return CPP_RationalNumber(left) * right;
 }
 
-CPP_RationalNumber operator/( const CPP_RationalNumber &left, const int right){
+CPP_RationalNumber operator/(const CPP_RationalNumber &left, const int right){
     return left / CPP_RationalNumber(right);
-}
+}*/
 
 }
 #endif // RATIONALNUMBER_H
