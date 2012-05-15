@@ -11,7 +11,7 @@ void testCPP_RNA(void)
     printf("Performing unit tests for CPP_RationalNumberArray...");
     fflush(stdout);
 
-   CPP_RationalNumber
+    CPP_RationalNumber
             rn1 = CPP_RationalNumber( 3, 4 ),
             rn2 = CPP_RationalNumber(  6, 4 ),
             rn3 = CPP_RationalNumber(  3, 2 ),
@@ -110,6 +110,27 @@ void testCPP_RNA(void)
 
     rna.remove( 0, 10);
     assert (rna.size() == 0);
+
+    //new tests:
+    CPP_RationalNumberArray rna1 (10);
+    rna1.add( CPP_RationalNumber(  3,  4 )); // index 0
+    rna1.add( CPP_RationalNumber(  6,  4 )); // index 1
+    rna1.add( CPP_RationalNumber(  3,  2 )); // index 2
+    rna1.add( CPP_RationalNumber( -9, -6 )); // index 3
+    rna1.add( CPP_RationalNumber(  9, -6 )); // index 4
+    rna1.add( CPP_RationalNumber(  9,  4 )); // index 5
+    rna1.add( CPP_RationalNumber(  0,  4 )); // index 6
+    rna1.add( CPP_RationalNumber(  4,  0 )); // index 7
+
+    CPP_RationalNumberArray rna2 = rna1;
+
+    assert(rna2.size() == rna1.size());
+    assert(rna2.capacity() == rna1.capacity());
+    assert(rna2.get(0) == rna1.get(0)); //succeeds
+    assert(rna2.get(7) == rna1.get(7)); //TODO: fails... wtf?
+
+    //TODO: test for == operator that is supposed to fail or just notice that we cant compile after there´s no such operator
+
 
     printf(" successful!\n");
 }
