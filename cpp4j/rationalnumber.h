@@ -57,8 +57,10 @@ RationalNumber rnMultiply
 RationalNumber rnDivide
 (const RationalNumber left,
  const RationalNumber right);
+
 namespace rnum {
 class CPP_RationalNumber {
+
 public :
 
     CPP_RationalNumber
@@ -122,9 +124,10 @@ public :
         printf("%d %d \n" , rn.nominator, rn.denominator);
     }
 
-
 private:
+
     RationalNumber rn;
+
 };
 
 /*CPP_RationalNumber operator*(const int left, const CPP_RationalNumber &right){

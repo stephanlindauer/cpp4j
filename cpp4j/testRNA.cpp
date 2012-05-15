@@ -8,7 +8,6 @@
 #include "rationalnumber.h"
 #include "rationalnumberarray.h"
 
-
 const unsigned int wantedCapacity = 10;
 
 bool errorCBCalled = false;
@@ -135,5 +134,3 @@ void testRNA(void)
 
     printf(" successful!\n");
 }
-
-

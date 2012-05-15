@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 #include "rationalnumber.h"
 
 #include "testRN.cpp"
@@ -19,4 +18,3 @@ int main()
 
     return 0;
 }
-

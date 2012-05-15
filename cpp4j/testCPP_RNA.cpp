@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include <assert.h>
 
@@ -13,9 +11,7 @@ void testCPP_RNA(void)
     printf("Performing unit tests for CPP_RationalNumberArray...");
     fflush(stdout);
 
-
-
-    CPP_RationalNumber
+   CPP_RationalNumber
             rn1 = CPP_RationalNumber( 3, 4 ),
             rn2 = CPP_RationalNumber(  6, 4 ),
             rn3 = CPP_RationalNumber(  3, 2 ),
@@ -98,7 +94,6 @@ void testCPP_RNA(void)
     assert (rna.size() == 7);
     assert (rna.capacity() == 7);
 
-
     // remove elements: 3, 4, 5
     // elements 6.. become elements 3..
     rna.remove( 3, 5);
@@ -115,8 +110,6 @@ void testCPP_RNA(void)
 
     rna.remove( 0, 10);
     assert (rna.size() == 0);
-
-
 
     printf(" successful!\n");
 }

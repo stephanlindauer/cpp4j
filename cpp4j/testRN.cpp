@@ -7,8 +7,6 @@
 
 #include "rationalnumber.h"
 
-
-
 void testRN()
 {
 
@@ -47,4 +45,3 @@ void testRN()
     printf(" successful!\n");
 
 }
-

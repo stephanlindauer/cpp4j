@@ -70,6 +70,7 @@ class CPP_RationalNumberArray;
 typedef void (*cppErrorCallback_t)(CPP_RationalNumberArray &rna);
 
 class CPP_RationalNumberArray {
+
 public :
 
     CPP_RationalNumberArray (const unsigned int size = 10);
@@ -94,15 +95,20 @@ public :
     void rnaSetErrorCallback (const cppErrorCallback_t callback);
 
 private:
+
     void setError(const RNAErrorCode errorCode);
-    //void initializeWithNullRationalNumber(const unsigned int from, const unsigned int to);
+
     CPP_RationalNumber * m_data;
+
     unsigned int m_size;
+
     unsigned int m_capacity;
+
     RNAErrorCode m_error;
+
     cppErrorCallback_t m_errorCallback;
+
 };
 }
-
 
 #endif // RATIONALNUMBERARRAY_H

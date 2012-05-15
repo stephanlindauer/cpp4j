@@ -11,7 +11,6 @@ void testCPP_RN(void)
     printf("Performing unit tests for CPP_RationalNumber...");
     fflush(stdout);
 
-
     CPP_RationalNumber a, x;
     CPP_RationalNumber b(0,1), c(2,3), d(9,3), e(-4,2), f(17,3);
 
@@ -20,7 +19,6 @@ void testCPP_RN(void)
 
     x = -f + CPP_RationalNumber(3,4);
     assert( x == CPP_RationalNumber( -59 , 12 ));
-
 
     int i=5, j=4;
     CPP_RationalNumber g(1,2), h(7,3);
