@@ -6,11 +6,10 @@
 #include <assert.h>
 
 #include "rationalnumber.h"
-#include "testRNA.cpp"
 
-#include "testCPP_RN.cpp"
 
-int main()
+
+void testRN()
 {
 
     printf("Performing unit tests for RationalNumber...");
@@ -47,10 +46,5 @@ int main()
 
     printf(" successful!\n");
 
-    testRNA();
-
-   testCPP_RN();
-
-    return 0;
 }
 
