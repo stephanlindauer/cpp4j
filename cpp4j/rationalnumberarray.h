@@ -74,6 +74,7 @@ class CPP_RationalNumberArray {
 public :
 
     CPP_RationalNumberArray (const unsigned int size = 10);
+    CPP_RationalNumberArray (const CPP_RationalNumberArray &rhs);
 
     ~CPP_RationalNumberArray (void);
 
@@ -94,7 +95,7 @@ public :
     RNAErrorCode rnaError(void) const;
     void rnaSetErrorCallback (const cppErrorCallback_t callback);
 
-    CPP_RationalNumberArray operator=
+    CPP_RationalNumberArray& operator=
     (const CPP_RationalNumberArray &right);
 
     const CPP_RationalNumber& operator[]
@@ -118,6 +119,8 @@ private:
     RNAErrorCode m_error;
 
     cppErrorCallback_t m_errorCallback;
+
+    void copy(const CPP_RationalNumberArray &from);
 
     bool operator==
     (const RationalNumberArray & rna) const{

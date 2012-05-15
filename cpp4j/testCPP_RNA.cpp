@@ -122,15 +122,17 @@ void testCPP_RNA(void)
     rna1.add( CPP_RationalNumber(  0,  4 )); // index 6
     rna1.add( CPP_RationalNumber(  4,  0 )); // index 7
 
-    CPP_RationalNumberArray rna2 = rna1;
-
+    CPP_RationalNumberArray rna2 = rna1; // copy constructor
     assert(rna2.size() == rna1.size());
     assert(rna2.capacity() == rna1.capacity());
-    assert(rna2.get(0) == rna1.get(0)); //succeeds
-    assert(rna2.get(7) == rna1.get(7)); //TODO: fails... wtf?
+    assert(rna2.get(0) == rna1.get(0));
 
-    //TODO: test for == operator that is supposed to fail or just notice that we cant compile after there´s no such operator
+    assert(!(rna2.get(7) == rna1.get(7)));
+    // fails because == delegates to rnEqual() which in turn returns false if any of the parameters
+    // returns true when calling rnIsNaN
 
+    CPP_RationalNumberArray rna3; // default constructor
+    rna3 = rna2; // assignment operator
 
     printf(" successful!\n");
 }

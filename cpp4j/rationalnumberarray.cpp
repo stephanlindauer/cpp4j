@@ -218,10 +218,14 @@ rnum::CPP_RationalNumberArray::CPP_RationalNumberArray (const unsigned int size)
 
 }
 
+rnum::CPP_RationalNumberArray::CPP_RationalNumberArray (const rnum::CPP_RationalNumberArray &rhs) {
+    copy(rhs);
+}
+
 rnum::CPP_RationalNumberArray::~CPP_RationalNumberArray (void) {
     if (this->m_data != NULL) {
         // free the array
-        delete(this->m_data);
+        delete[](this->m_data);
         this->m_data = NULL;
     }
 }
@@ -335,18 +339,14 @@ void rnum::CPP_RationalNumberArray::setError(const RNAErrorCode errorCode) {
         this->m_errorCallback (*this);
 }
 
-rnum::CPP_RationalNumberArray rnum::CPP_RationalNumberArray::operator=
+rnum::CPP_RationalNumberArray& rnum::CPP_RationalNumberArray::operator=
 (const rnum::CPP_RationalNumberArray &right) {
     if( this == &right ){
         return *this;
     }
-    this->m_size = right.m_size;
-    this->m_capacity = right.m_capacity;
-    delete[] this->m_data;
-    this->m_data = new CPP_RationalNumber[this->m_capacity];
-    for(unsigned int i = 0; i < right.m_size; i++){
-        this->m_data[i]= right.m_data[i];
-    }
+
+    delete[](this->m_data);
+    copy(right);
     return *this;
 }
 
@@ -358,6 +358,20 @@ const rnum::CPP_RationalNumber& rnum::CPP_RationalNumberArray::operator[]
 rnum::CPP_RationalNumber& rnum::CPP_RationalNumberArray::operator[]
 (const unsigned int &index)  {
     return this->m_data[index];
+}
+
+void rnum::CPP_RationalNumberArray::copy(const CPP_RationalNumberArray &from) {
+    this->m_data = new CPP_RationalNumber[from.m_capacity];
+
+    for (unsigned int i = 0; i < from.m_capacity; i++) {
+        this->m_data[i] = from.m_data[i];
+    }
+
+    this->m_size = from.m_size;
+    this->m_capacity = from.m_capacity;
+
+    this->m_errorCallback = from.m_errorCallback;
+    setError(from.m_error);
 }
 
 
