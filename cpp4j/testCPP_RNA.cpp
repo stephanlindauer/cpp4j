@@ -13,6 +13,8 @@ void testCPP_RNA(void)
     printf("Performing unit tests for CPP_RationalNumberArray...");
     fflush(stdout);
 
+
+
     CPP_RationalNumber
             rn1 = CPP_RationalNumber( 3, 4 ),
             rn2 = CPP_RationalNumber(  6, 4 ),
@@ -50,29 +52,29 @@ void testCPP_RNA(void)
     rnx = rna.get(0);
     assert (rn1 == rnx);
 
-    rna.set( 0, rn2);
+    rna.set(0, rn2);
     rnx = rna.get( 0);
     assert (rn2 == rnx);
 
     rna.add( rn1);
-    assert (rna.size() == 1);
-    assert (rna.capacity() == 1);
+    assert (rna.size() == 2);
+    assert (rna.capacity() == wantedCapacity *2 );
 
     rna.add( rn2);
-    assert (rna.size() == 2);
-    assert (rna.capacity() == 101);
+    assert (rna.size() == 3);
+    assert (rna.capacity() == wantedCapacity *2);
 
     rna.add(rn3);
-    assert (rna.size() == 3);
-    assert (rna.capacity() == 101);
+    assert (rna.size() == 4);
+    assert (rna.capacity() == wantedCapacity *2);
 
     rna.add( rn4);
     rna.add( rn5);
     rna.add( rn6);
     rna.add( rn7);
- rna.add( rn8);
+    rna.add( rn8);
 
-    assert (rna.size() == 8);
+    assert (rna.size() == 9);
 
     rna.resize( 4); // remaining elements: 0, 1, 2, 3
     assert (rna.size() == 4);
@@ -108,7 +110,7 @@ void testCPP_RNA(void)
     assert (rna.capacity() == 7);
 
     rnx = rna.get( 10);
-    assert (rna.rnaError() == rnaNoError);
+    assert (rna.rnaError() == rnaInvalidIndex);
     assert (rnx== rnn);
 
     rna.remove( 0, 10);
