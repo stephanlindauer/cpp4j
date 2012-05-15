@@ -56,10 +56,11 @@ RationalNumberArray * rnaCreate(const unsigned int size) {
     RationalNumberArray * rna = (RationalNumberArray*) malloc (
                 sizeof (RationalNumber *) +
                 sizeof (int) +
-                sizeof (int));
+                sizeof (int) +
+                sizeof (RNAErrorCode) +
+                sizeof (rnaErrorCallback_t));
 
     rna->data = (RationalNumber*) malloc (computeSizeForData(size));
-
 
     initializeWithNullRationalNumber(rna, 0, size);
 
@@ -143,7 +144,7 @@ void rnaResize(RationalNumberArray * rna, const unsigned int newSize) {
     if (rna->size == newSize) // nothing to do
         return;
 
-    RationalNumber * newData = (RationalNumber*) realloc((RationalNumber *)rna->data, computeSizeForData(newSize));
+    RationalNumber * newData = (RationalNumber*) realloc(rna->data, computeSizeForData(newSize));
 
     if (rna->size > newSize) {
         // size decreases, ptr returned by realloc should always be equal to the old ptr
