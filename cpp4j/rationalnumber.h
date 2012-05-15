@@ -93,7 +93,7 @@ public :
     (const CPP_RationalNumber &right) const;
 
     const CPP_RationalNumber operator+
-     (const CPP_RationalNumber &right) const;
+    (const CPP_RationalNumber &right) const;
 
     const CPP_RationalNumber operator-
     (const CPP_RationalNumber &right) const;
@@ -110,9 +110,18 @@ public :
     const CPP_RationalNumber operator/
     (const CPP_RationalNumber &right) const;
 
+    int toInt(void){
+        return rn.nominator / rn.denominator;
+    }
+
+    double toDouble(void){
+        return ((double) rn.nominator) / ((double) rn.denominator);
+    }
+
     void toString(void){
         printf("%d %d \n" , rn.nominator, rn.denominator);
     }
+
 
 private:
     RationalNumber rn;
