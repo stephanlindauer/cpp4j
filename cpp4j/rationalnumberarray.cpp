@@ -237,6 +237,7 @@ void rnum::CPP_RationalNumberArray::resize(const unsigned int newSize) {
         for (unsigned int i = 0; i < newSize; i++) {
             newData[i] = this->m_data[i];
         }
+        this->m_size = newSize;
     }
     else // append
     {
