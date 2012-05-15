@@ -18,34 +18,53 @@ bool rnum::CPP_RationalNumber::isNaN (void){
 }
 
 bool rnum::CPP_RationalNumber::operator==
-(const CPP_RationalNumber &right){
+(const rnum::CPP_RationalNumber &right){
     return rnEqual(this->rn,right.rn);
 }
 
 
 bool rnum::CPP_RationalNumber::operator<
-(const CPP_RationalNumber &right){
+(const rnum::CPP_RationalNumber &right){
     return rnLessThan(this->rn,right.rn);
 }
 
-void rnum::CPP_RationalNumber::operator+
-(const CPP_RationalNumber &right){
-    this->rn = rnAdd(this->rn,right.rn);
+const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator+
+(const rnum::CPP_RationalNumber &right) const{
+    rnum::CPP_RationalNumber result = *this;
+    result.rn = rnAdd(this->rn, right.rn);
+    return result;
 }
 
-void rnum::CPP_RationalNumber::operator-
-(const CPP_RationalNumber &right){
-    this->rn = rnSubtract(this->rn,right.rn);
+const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator-
+(const rnum::CPP_RationalNumber &right) const{
+    rnum::CPP_RationalNumber result = *this;
+    result.rn = rnSubtract(this->rn, right.rn);
+    return result;
 }
 
-void rnum::CPP_RationalNumber::operator*
-(const CPP_RationalNumber &right){
-    this->rn = rnMultiply(this->rn,right.rn);
+const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator -()
+ const{
+    rnum::CPP_RationalNumber result = *this;
+    const RationalNumber kaiSucks = { -1,1};
+    result.rn = rnMultiply( this->rn , kaiSucks  );
+    return result;
+
 }
 
-void rnum::CPP_RationalNumber::operator/
-(const CPP_RationalNumber &right){
-    this->rn = rnDivide(this->rn,right.rn);
+
+const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator*
+(const rnum::CPP_RationalNumber &right) const{
+    rnum::CPP_RationalNumber result = *this;
+    result.rn = rnMultiply(this->rn, right.rn);
+    return result;
+}
+
+
+const rnum::CPP_RationalNumber rnum::CPP_RationalNumber::operator/
+(const rnum::CPP_RationalNumber &right) const{
+    rnum::CPP_RationalNumber result = *this;
+    result.rn = rnDivide(this->rn, right.rn);
+    return result;
 }
 
 

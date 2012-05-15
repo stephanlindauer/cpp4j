@@ -6,6 +6,8 @@
 #ifndef RATIONALNUMBER_H
 #define RATIONALNUMBER_H
 
+#include <stdio.h>
+
 struct RationalNumber {
     int nominator;
     int denominator;
@@ -66,6 +68,13 @@ public :
     }
 
     CPP_RationalNumber
+    ()
+    {
+        rn.nominator = 0;
+        rn.denominator = 1;
+    }
+
+    CPP_RationalNumber
     (int nom)
     {
         rn.nominator = nom;
@@ -89,17 +98,24 @@ public :
     bool operator<
     (const CPP_RationalNumber &right);
 
-    void operator+
-    (const CPP_RationalNumber &right);
+    const CPP_RationalNumber operator+
+     (const CPP_RationalNumber &right) const;
 
-    void operator-
-    (const CPP_RationalNumber &right);
+    const CPP_RationalNumber operator-
+    (const CPP_RationalNumber &right) const;
 
-    void operator*
-    (const CPP_RationalNumber &right);
+    const CPP_RationalNumber operator-
+    () const;
 
-    void operator/
-    (const CPP_RationalNumber &right);
+    const CPP_RationalNumber operator*
+    (const CPP_RationalNumber &right) const;
+
+    const CPP_RationalNumber operator/
+    (const CPP_RationalNumber &right) const;
+
+    void toString(void){
+        printf("%d %d \n" , rn.nominator, rn.denominator);
+    }
 
 private:
     RationalNumber rn;
