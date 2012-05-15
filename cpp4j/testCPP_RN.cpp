@@ -19,7 +19,7 @@ void testCPP_RN(void)
     a.toString();
     assert( a == CPP_RationalNumber( 40 , 17 ));
 
-    assert( x == CPP_RationalNumber( -52 , 12 ));
+    assert( x == CPP_RationalNumber( -59 , 12 ));
 
 
 
