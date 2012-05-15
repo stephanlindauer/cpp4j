@@ -101,6 +101,10 @@ RNAErrorCode rnaError(const RationalNumberArray * rna) {
 }
 
 RationalNumber rnaGet(RationalNumberArray * rna, const unsigned int position) {
+    if (rna == NULL) {
+        return NULL_RATIONAL_NUMBER;
+    }
+
     if (rna->data == NULL) {
         return NULL_RATIONAL_NUMBER;
     }
@@ -199,3 +203,140 @@ void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback
 
     rna->errorCallback = callback;
 }
+
+rnum::CPP_RationalNumberArray::CPP_RationalNumberArray (const unsigned int size) {
+    this->m_data = new CPP_RationalNumber[size];
+
+    this->m_size = 0;
+    this->m_capacity = size;
+    this->m_errorCallback = NULL;
+
+    if (this->m_data == NULL)
+        setError(rnaAllocFailed);
+    else
+        setError(rnaNoError);
+
+}
+
+rnum::CPP_RationalNumberArray::~CPP_RationalNumberArray (void) {
+    if (this->m_data != NULL) {
+        // free the array
+        delete(this->m_data);
+        this->m_data = NULL;
+    }
+}
+
+void rnum::CPP_RationalNumberArray::resize(const unsigned int newSize) {
+    if (this->m_size == newSize) // nothing to do
+        return;
+
+    CPP_RationalNumber * newData = new CPP_RationalNumber[newSize];
+
+    if (this->m_size > newSize) // truncate
+    {
+        for (unsigned int i = 0; i < newSize; i++) {
+            newData[i] = this->m_data[i];
+        }
+    }
+    else // append
+    {
+        for (unsigned int i = 0; i < this->m_size; i++) {
+            newData[i] = this->m_data[i];
+        }
+    }
+
+    // don't leak
+    delete(this->m_data);
+
+    this->m_data = newData;
+    this->m_capacity = newSize;
+    setError(rnaNoError);
+}
+
+unsigned int rnum::CPP_RationalNumberArray::size(void) {
+    return this->m_size;
+}
+
+unsigned int rnum::CPP_RationalNumberArray::capacity(void) {
+    return this->m_capacity;
+}
+
+void rnum::CPP_RationalNumberArray::add(const rnum::CPP_RationalNumber newRationalNumber) {
+    if (this->m_size < this->m_capacity) {
+        this->m_data[this->m_size++] = newRationalNumber;
+        setError(rnaNoError);
+        return;
+    }
+
+    // resize array and retry
+    const unsigned int oldCapacity = this->m_capacity;
+    resize(oldCapacity + INCREMENTATION);
+    assert (this->m_capacity == oldCapacity + INCREMENTATION);
+    add(newRationalNumber);
+}
+
+void rnum::CPP_RationalNumberArray::set(const unsigned int position, const rnum::CPP_RationalNumber rationalNumber) {
+    if(position > this->m_size)
+        resize(position + 1);
+
+    this->m_data[position] = rationalNumber;
+    this->m_size = position+1;
+}
+
+const rnum::CPP_RationalNumber rnum::CPP_RationalNumberArray::get(const unsigned int position) {
+    if (position >= this->m_size) {
+        setError(rnaInvalidIndex);
+        return NULL_RATIONAL_NUMBER;
+    }
+
+    setError(rnaNoError);
+    return this->m_data[position];
+}
+
+void rnum::CPP_RationalNumberArray::remove(const unsigned int from, const unsigned int to) {
+    //this->m_
+
+    if (to < from) {
+        setError(rnaInvalidIndex);
+        return;
+    }
+
+    unsigned int offset = (to - from) + 1;
+
+    // overwrite (from .. to) with subsequent elements;
+    for(unsigned int i = from; i < this->m_capacity; i++)
+        if (i+offset <= this->m_size)
+            this->m_data[i] = this->m_data[i+offset];
+        else
+            break;
+
+    // calculate new size
+    this->m_size = (this->m_size > offset) ? this->m_size - offset : 0;
+
+    setError(rnaNoError);
+
+    for (unsigned int i = this->m_size; i < this->m_capacity; i++)
+        this->m_data[i] = CPP_RationalNumber();
+}
+
+RNAErrorCode rnum::CPP_RationalNumberArray::rnaError(void) const {
+    return this->m_error;
+}
+
+void rnum::CPP_RationalNumberArray::rnaSetErrorCallback (const rnum::cppErrorCallback_t callback) {
+    this->m_errorCallback = callback;
+}
+
+void rnum::CPP_RationalNumberArray::setError(const RNAErrorCode errorCode) {
+    this->m_error = errorCode;
+
+    if (this->m_error != rnaNoError && this->m_errorCallback != NULL)
+        this->m_errorCallback (*this);
+}
+
+
+/*void rnum::CPP_RationalNumberArray::initializeWithNullRationalNumber(const unsigned int from, const unsigned int to) {
+    for (unsigned int i = from; i < to; i++) {
+        this->data[i] = NULL_RATIONAL_NUMBER;
+    }
+}*/

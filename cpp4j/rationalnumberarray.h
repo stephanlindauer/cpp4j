@@ -62,7 +62,14 @@ void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback
 
 
 namespace rnum{
-class CPP_RationalNumberArray{
+
+const CPP_RationalNumber NULL_RATIONAL_NUMBER ( 0, 1 );
+
+class CPP_RationalNumberArray;
+
+typedef void (*cppErrorCallback_t)(CPP_RationalNumberArray &rna);
+
+class CPP_RationalNumberArray {
 public :
 
     CPP_RationalNumberArray (const unsigned int size = 10);
@@ -79,16 +86,21 @@ public :
 
     void set(const unsigned int position, const CPP_RationalNumber rationalNumber);
 
-    CPP_RationalNumber get( const unsigned int position);
+    const CPP_RationalNumber get(const unsigned int position);
 
-    void remove( const unsigned int from, const unsigned int to);
+    void remove(const unsigned int from, const unsigned int to);
 
-    //RNAErrorCode rnaError(const RationalNumberArray * rna);
-    //void rnaSetErrorCallback (RationalNumberArray * rna, rnaErrorCallback_t callback);
+    RNAErrorCode rnaError(void) const;
+    void rnaSetErrorCallback (const cppErrorCallback_t callback);
 
 private:
-    RationalNumberArray * rna;
-
+    void setError(const RNAErrorCode errorCode);
+    //void initializeWithNullRationalNumber(const unsigned int from, const unsigned int to);
+    CPP_RationalNumber * m_data;
+    unsigned int m_size;
+    unsigned int m_capacity;
+    RNAErrorCode m_error;
+    cppErrorCallback_t m_errorCallback;
 };
 }
 

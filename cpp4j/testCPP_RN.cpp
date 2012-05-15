@@ -35,17 +35,9 @@ void testCPP_RN(void)
     CPP_RationalNumber ja = j;
     assert(ja==CPP_RationalNumber( 4 , 1 ));
 
-    CPP_RationalNumber k(4,3), l(1,3);
-    CPP_RationalNumber m(2,12356), n( 1, 954321);
-    printf("%f \n", k.toDouble() );
-    printf("%f \n",((double)4 / (double)3));
+    CPP_RationalNumber k(4,2), l(6,3);
 
-
-    assert( (double) k.toDouble() == ((double)4 / (double)3) );
-    assert((double) 8 /(double) 6  ==(double) 8 /(double) 6  );
-    assert( l.toDouble() == 0.333333 );
-    assert( m.toDouble() == 0.000162 );
-    assert( n.toDouble() == 0.000001  );
+    assert( (int) k.toDouble() == l.toInt() );
 
     printf(" successful!\n");
 }
