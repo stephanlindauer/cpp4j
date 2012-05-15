@@ -7,7 +7,8 @@ SOURCES += rationalnumber.cpp \
     testRNA.cpp \
     testCPP_RN.cpp \
     testRN.cpp \
-    testMain.cpp
+    testMain.cpp \
+    testCPP_RNA.cpp
 
 HEADERS += \
     rationalnumber.h \
