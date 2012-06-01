@@ -6,6 +6,7 @@
 #include "testRNA.cpp"
 #include "testCPP_RN.cpp"
 #include "testCPP_RNA.cpp"
+#include "testTemplates.cpp"
 
 int main()
 {
@@ -14,6 +15,7 @@ int main()
     testRNA();
     testCPP_RN();
     testCPP_RNA();
+    testTemplates();
     printf( "tests done \n");
 
     return 0;
