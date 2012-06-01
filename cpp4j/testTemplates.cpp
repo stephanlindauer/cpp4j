@@ -86,12 +86,16 @@ int testTemplates(void)
     assert ( greaterInt(3,4) == 0 );
     assert ( greaterInt(3,3) == 0 );
 
+    Greater<string> greaterString;
+    cout << "Hallo > Welt == " << greaterString("Hallo","Welt") << endl;
 
-#if 0 // move this line down while your implementation proceeds...
     /////////////////////////////////////////
     // TEST PAIR ORDER
     MapToFirst< int, float, Less > lessPair;
     cout << i_f << " < " << i_f2 << " == " << lessPair(i_f, i_f2) << endl;
+
+#if 0 // move this line down while your implementation proceeds...
+
 
     /////////////////////////////////////////
     // TEST TREE
