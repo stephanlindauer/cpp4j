@@ -23,7 +23,7 @@ void testCPP_RN(void)
     int i=5, j=4;
     CPP_RationalNumber g(1,2), h(7,3);
 
-    CPP_RationalNumber aa = g*i, bb = h/j;
+    CPP_RationalNumber aa = i*g, bb = h/j;
     assert(aa==CPP_RationalNumber( 5 , 2 ));
     assert(bb==CPP_RationalNumber( 7 , 12 ));
 

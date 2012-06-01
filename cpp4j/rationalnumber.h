@@ -130,13 +130,13 @@ private:
 
 };
 
-/*CPP_RationalNumber operator*(const int left, const CPP_RationalNumber &right){
+inline CPP_RationalNumber operator*(const int left, const CPP_RationalNumber &right){
     return CPP_RationalNumber(left) * right;
 }
 
-CPP_RationalNumber operator/(const CPP_RationalNumber &left, const int right){
+inline CPP_RationalNumber operator/(const CPP_RationalNumber &left, const int right){
     return left / CPP_RationalNumber(right);
-}*/
+}
 
 }
 #endif // RATIONALNUMBER_H
