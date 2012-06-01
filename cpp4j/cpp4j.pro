@@ -13,5 +13,6 @@ SOURCES += rationalnumber.cpp \
 
 HEADERS += \
     rationalnumber.h \
-    rationalnumberarray.h
+    rationalnumberarray.h \
+    pair.h
 

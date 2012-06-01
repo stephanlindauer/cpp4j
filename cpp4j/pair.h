@@ -1,11 +1,13 @@
 #ifndef PAIR_H
 #define PAIR_H
 
-template <T1,T2> class Pair {
+#include <stdio.h>
+
+template <class T1, class T2> class Pair {
 
 public :
 
-    Pair ():
+    Pair  ():
         m_first(),
         m_second()
     { }
@@ -15,7 +17,7 @@ public :
         m_second(secondParam)
     { }
 
-    Pair (Pair otherPair):
+    Pair (Pair <T1,T2>& otherPair):
         m_first(otherPair.first()),
         m_second(otherPair.second())
     { }
@@ -25,25 +27,25 @@ public :
         return Pair(right.first(), right.second());
     }
 
-    ostream& operator << (ostream &os){
-        os << first();
-        os << second();
+    friend ostream& operator<< (ostream &os, const Pair<T1,T2>& pair){
+        os << '<' << pair.first() << ',' << pair.second() << '>';
+        return os;
     }
 
     T1& first(void){
-        return &m_first;
+        return m_first;
     }
 
     const T1& first(void) const {
-        return &m_first;
+        return m_first;
     }
 
     T2& second(void){
-        return &m_second;
+        return m_second;
     }
 
     const T2& second(void) const{
-        return &m_second;
+        return m_second;
     }
 
 private:
@@ -51,5 +53,5 @@ private:
     T1 m_first ;
     T2 m_second;
 
-}
+};
 #endif // PAIR_H

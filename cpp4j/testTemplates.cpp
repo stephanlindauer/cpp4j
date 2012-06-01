@@ -20,7 +20,8 @@ using namespace std;
 
 // you should define your own namespace for
 // the templates/classes in this project
-using namespace mystl;
+
+//using namespace mystl;
 
 // explicit template instantiation for compiling / debugging
 //template class Pair<int,string>;
@@ -28,6 +29,8 @@ using namespace mystl;
 //template class Map<int, string>;
 
 // list and count all nodes in a set using an iterator
+/*
+
 template<class Container>
 int printAndCount(Container & c) {
 
@@ -54,6 +57,7 @@ int printAndCountBackwards(Container & c) {
     return n;
 }
 
+*/
 
 int testTemplates(void)
 {
@@ -68,7 +72,6 @@ int testTemplates(void)
     Pair<string,string> s_s("Hello","World!");
     cout << i_f << " " << s_s << endl;
 
-#if 0 // move this line down while your implementation proceeds...
 
     /////////////////////////////////////////
     // TEST ORDER
@@ -76,6 +79,7 @@ int testTemplates(void)
     cout << "2<3 == " << lessInt(2,3) << endl;
     cout << "4<3 == " << lessInt(4,3) << endl;
 
+#if 0 // move this line down while your implementation proceeds...
     /////////////////////////////////////////
     // TEST PAIR ORDER
     MapToFirst< int, float, Less > lessPair;
