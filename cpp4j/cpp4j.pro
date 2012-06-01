@@ -14,5 +14,7 @@ SOURCES += rationalnumber.cpp \
 HEADERS += \
     rationalnumber.h \
     rationalnumberarray.h \
-    pair.h
+    pair.h \
+    less.h \
+    greater.h
 

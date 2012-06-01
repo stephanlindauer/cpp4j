@@ -14,6 +14,8 @@ using namespace std;
 
 // include your own header files here...
 #include "pair.h"
+#include "less.h"
+#include "greater.h"
 //#include "order.h"
 //#include "tree.h"
 //#include "map.h"
@@ -78,6 +80,12 @@ int testTemplates(void)
     Less<int> lessInt;
     cout << "2<3 == " << lessInt(2,3) << endl;
     cout << "4<3 == " << lessInt(4,3) << endl;
+
+    Greater<int> greaterInt;
+    assert ( greaterInt(4,3) == 1 );
+    assert ( greaterInt(3,4) == 0 );
+    assert ( greaterInt(3,3) == 0 );
+
 
 #if 0 // move this line down while your implementation proceeds...
     /////////////////////////////////////////
