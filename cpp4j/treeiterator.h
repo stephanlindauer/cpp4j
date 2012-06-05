@@ -80,8 +80,8 @@ public:
 
 private:
 
-    TreeNode<T, Order> m_node;
-    Tree<T, Order> m_tree;
+    TreeNode<T, Order> * m_node;
+    Tree<T, Order> * m_tree;
 
 };
 

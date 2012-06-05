@@ -40,6 +40,7 @@ public:
 
 protected:
 
+    TreeNode<T, Order> * self;
     T m_value;
     TreeNode<T, Order>* m_up;
     TreeNode<T, Order>* m_left;
