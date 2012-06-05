@@ -17,5 +17,8 @@ HEADERS += \
     pair.h \
     less.h \
     greater.h \
-    maptofirst.h
+    maptofirst.h \
+    tree.h \
+    treenode.h \
+    treeiterator.h
 

@@ -10,7 +10,7 @@ public :
     bool operator ()(const T &left, const T &right){
         Less<T> less;
         bool lesser = less(left, right);
-        bool equal = !less(left, right) && !less(right,left);
+        bool equal = !less(left, right) && !less(right, left);
         return !lesser && !equal;
     }
 

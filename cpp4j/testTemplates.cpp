@@ -18,7 +18,7 @@ using namespace std;
 #include "greater.h"
 #include "maptofirst.h"
 //#include "order.h"
-//#include "tree.h"
+#include "tree.h"
 //#include "map.h"
 
 // you should define your own namespace for
@@ -32,8 +32,6 @@ using namespace std;
 //template class Map<int, string>;
 
 // list and count all nodes in a set using an iterator
-/*
-
 template<class Container>
 int printAndCount(Container & c) {
 
@@ -59,8 +57,6 @@ int printAndCountBackwards(Container & c) {
     cout << endl;
     return n;
 }
-
-*/
 
 int testTemplates(void)
 {
