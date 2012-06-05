@@ -16,5 +16,6 @@ HEADERS += \
     rationalnumberarray.h \
     pair.h \
     less.h \
-    greater.h
+    greater.h \
+    maptofirst.h
 

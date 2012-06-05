@@ -16,6 +16,7 @@ using namespace std;
 #include "pair.h"
 #include "less.h"
 #include "greater.h"
+#include "maptofirst.h"
 //#include "order.h"
 //#include "tree.h"
 //#include "map.h"
@@ -88,14 +89,13 @@ int testTemplates(void)
 
     Greater<string> greaterString;
     cout << "Hallo > Welt == " << greaterString("Hallo","Welt") << endl;
+    assert(!greaterString("Hallo","Welt"));
 
     /////////////////////////////////////////
     // TEST PAIR ORDER
     MapToFirst< int, float, Less > lessPair;
     cout << i_f << " < " << i_f2 << " == " << lessPair(i_f, i_f2) << endl;
-
-#if 0 // move this line down while your implementation proceeds...
-
+    assert(lessPair(i_f, i_f2));
 
     /////////////////////////////////////////
     // TEST TREE
@@ -104,6 +104,8 @@ int testTemplates(void)
     Tree<int> t;
     cout << "empty tree: ";
     assert(printAndCount(t) == 0);
+
+#if 0 // move this line down while your implementation proceeds...
 
     // insert elements in a certain order
     t.insert(4);
