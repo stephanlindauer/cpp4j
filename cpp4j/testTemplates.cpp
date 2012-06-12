@@ -30,7 +30,7 @@ using namespace std;
 //template class Pair<int,string>;
 //template class Tree< int,Less<int> >;
 //template class Map<int, string>;
-/*
+
 // list and count all nodes in a set using an iterator
 template<class Container>
 int printAndCount(Container & c) {
@@ -56,7 +56,7 @@ int printAndCountBackwards(Container & c) {
     }
     cout << endl;
     return n;
-}*/
+}
 
 int testTemplates(void)
 {
@@ -97,15 +97,12 @@ int testTemplates(void)
     // TEST TREE
 
 
-    Tree<int> t;
 
-#if 0 // move this line down while your implementation proceeds...
     // construct empty tree
     Tree<int> t;
     cout << "empty tree: ";
     assert(printAndCount(t) == 0);
-
-
+    cout.flush();
 
     // insert elements in a certain order
     t.insert(4);
@@ -115,6 +112,9 @@ int testTemplates(void)
     t.insert(5);
     cout << "tree 4-3-2-1-5: ";
     assert(printAndCount(t) == 5);
+
+
+#if 0 // move this line down while your implementation proceeds...
 
     // test clear()
     t.clear();

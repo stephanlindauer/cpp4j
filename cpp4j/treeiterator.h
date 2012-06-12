@@ -1,16 +1,15 @@
 #ifndef TREEITERATOR_H
 #define TREEITERATOR_H
 
-#include "tree.h"
 #include "treenode.h"
+
+template <class T, template<typename> class Order > class Tree;
 
 template <class T, template<typename> class Order > class TreeIterator {
 
-    friend class TreeNode<T, Order>;
+    friend class Tree<T, Order>;
 
 public:
-
-    TreeIterator(TreeNode<T, Order> node) : m_node(node) {}
 
     T& operator*() {
         return m_node->value();
@@ -20,13 +19,16 @@ public:
         return m_node->value();
     }
 
+    // zum naechsten Element
     TreeIterator<T, Order>& operator++() {
         // erst rechts prüfen, ob vorhanden
         // ansonsten solange nach oben, bis größerer gefunden
-        if (m_node->m_right != NULL)
-            return TreeIterator(m_right);
+        if (m_node->m_right != NULL) {
+            m_node = m_node->m_right;
+            return *this;
+        }
 
-        TreeNode<T, Order> parent = m_node;
+        TreeNode<T, Order> * parent = m_node;
 
         Order<T> functor;
         do {
@@ -44,15 +46,16 @@ public:
         return *this;
     }
 
+    // zum vorherigen Element
     TreeIterator<T, Order>& operator--() {
         if (m_node->m_left != NULL) {
             TreeNode<T, Order> node = m_node.m_left;
             while (node->m_right != NULL)
-                node = m_right;
+                node = node->m_right;
 
             m_node = node;
         } else if (m_node->m_up != NULL) {
-            TreeNode<T, Order> parent = m_node;
+            TreeNode<T, Order> * parent = m_node;
 
             Order<T> functor;
             do {
@@ -69,19 +72,22 @@ public:
         return *this;
     }
 
-    bool operator==(const TreeIterator<T, Order> &rhs) {
-       return this->m_node == rhs.m_node;
-
-
+    bool operator==(const TreeIterator<T, Order> &rhs) const {
+       return this->m_node == rhs.m_node && this->m_tree == rhs.m_tree;
     }
 
-    bool operator!=(const TreeIterator<T, Order> &rhs);
+    bool operator!=(const TreeIterator<T, Order> &rhs) const {
+        return this->m_node != rhs.m_node || this->m_tree != rhs.m_tree;
+    }
 
+protected:
+
+    TreeIterator(TreeNode<T, Order> * node, const Tree<T, Order> * tree) : m_node(node), m_tree(tree) {}
 
 private:
 
     TreeNode<T, Order> * m_node;
-    Tree<T, Order> * m_tree;
+    const Tree<T, Order> * m_tree;
 
 };
 

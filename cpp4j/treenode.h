@@ -1,7 +1,13 @@
 #ifndef TREENODE_H
 #define TREENODE_H
 
+template <class T, template<typename> class Order > class Tree;
+template <class T, template<typename> class Order > class TreeIterator;
+
 template <class T, template<typename> class Order > class TreeNode {
+
+    friend class Tree<T, Order>;
+    friend class TreeIterator<T, Order>;
 
 public:
 
@@ -38,13 +44,28 @@ public:
         return this;
     }
 
+    /*bool operator==(const TreeNode<T, Order> &rhs) const {
+        return     this->m_value == rhs.m_value
+                && this->m_up == rhs.m_up
+                && this->m_left == rhs.m_left
+                && this->m_right == rhs.m_right;
+    }*/
+
+
 protected:
 
-    TreeNode<T, Order> * self;
     T m_value;
     TreeNode<T, Order>* m_up;
     TreeNode<T, Order>* m_left;
     TreeNode<T, Order>* m_right;
+
+    // create a leaf node
+    TreeNode<T, Order>(const T value, TreeNode<T, Order> * up = NULL)
+        : m_value(value), m_up(up), m_left(NULL), m_right(NULL) {}
+
+    // create a branch node
+    TreeNode<T, Order>(const T value, TreeNode<T, Order> * up, TreeNode<T, Order> * left, TreeNode<T, Order> * right)
+        : m_value(value), m_up(up), m_left(left), m_right(right) {}
 
 };
 
