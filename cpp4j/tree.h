@@ -26,19 +26,16 @@ public:
         }
     }
 
-    //void clear();
-    iterator begin() {
-        if (m_root == NULL)
-            return iterator(NULL, this);
+    void clear() {
+        m_root = NULL;
+    }
 
-        return iterator (m_root->findFirst(), this);
+    iterator begin() {
+        return iterator (m_root, this);
     }
 
     iterator end() {
-        if (m_root == NULL)
-            return iterator(NULL, this);
-
-        return iterator (m_root->findLast(), this);
+        return iterator (NULL, this);
     }
 
     /*iterator first();
@@ -69,7 +66,7 @@ private:
             if (next.m_node == NULL) {
                 next.m_node = new node(value);
                 next.m_node->m_up = i.m_node;
-                i.m_node->m_left = next.m_node;
+                i.m_node->m_right = next.m_node;
                 return next;
 
             } else

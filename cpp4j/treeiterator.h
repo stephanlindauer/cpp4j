@@ -19,61 +19,35 @@ public:
         return m_node->value();
     }
 
-    // zum naechsten Element
+    // zum vorherigen Element
     TreeIterator<T, Order>& operator++() {
-        // erst rechts prüfen, ob vorhanden
-        // ansonsten solange nach oben, bis größerer gefunden
-        if (m_node->m_right != NULL) {
-            m_node = m_node->m_right;
+        if (m_node == NULL)
+            return *this;
+
+        if (m_node->m_left == NULL) {
+            TreeNode<T, Order> * parent = m_node;
+            while (parent != NULL && parent->m_right == NULL)
+                parent = parent->m_up;
+
+            if (m_node == parent->m_right || m_node->m_up == parent->m_right)
+                m_node = NULL;
+            else
+                m_node = parent->m_right;
             return *this;
         }
 
-        TreeNode<T, Order> * parent = m_node;
-
-        Order<T> functor;
-        do {
-
-            parent = parent->m_up;
-
-            // keep position
-            if (parent == NULL)
-                return *this;
-
-
-        } while (functor(m_node->m_value, parent->m_value));
-
-        m_node = parent;
+        m_node = m_node->m_left;
         return *this;
     }
 
-    // zum vorherigen Element
+    // zum naechsten Element
     TreeIterator<T, Order>& operator--() {
-        if (m_node->m_left != NULL) {
-            TreeNode<T, Order> node = m_node.m_left;
-            while (node->m_right != NULL)
-                node = node->m_right;
-
-            m_node = node;
-        } else if (m_node->m_up != NULL) {
-            TreeNode<T, Order> * parent = m_node;
-
-            Order<T> functor;
-            do {
-                parent = parent->m_up;
-                // keep position
-                if (parent == NULL)
-                    return *this;
-
-            } while (functor(m_node->m_value, parent->m_value));
-
-            m_node=parent;
-        }
-
-        return *this;
     }
+
+
 
     bool operator==(const TreeIterator<T, Order> &rhs) const {
-       return this->m_node == rhs.m_node && this->m_tree == rhs.m_tree;
+        return this->m_node == rhs.m_node && this->m_tree == rhs.m_tree;
     }
 
     bool operator!=(const TreeIterator<T, Order> &rhs) const {
