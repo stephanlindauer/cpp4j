@@ -21,21 +21,43 @@ public:
 
     // zum vorherigen Element
     TreeIterator<T, Order>& operator++() {
+        cout << m_node->m_value << endl;
+
         if (m_node == NULL)
             return *this;
 
         if (m_node->m_left == NULL) {
-            TreeNode<T, Order> * parent = m_node;
-            while (parent != NULL && parent->m_right == NULL)
-                parent = parent->m_up;
+            // nach rechts oder nach oben->rechts
 
-            if (m_node == parent->m_right || m_node->m_up == parent->m_right)
-                m_node = NULL;
-            else
-                m_node = parent->m_right;
+            // parent von node
+            TreeNode<T, Order> * parent = m_node->m_up;
+
+            // laufe nach oben, wenn du links vom oberen bist
+            //if (parent->m_left == m_node) {
+
+                // laufe nach oben, weil du links vom oberen bist
+                parent = parent->m_up; // urelter
+
+                //
+                while (parent != NULL && parent->m_up != NULL) {
+                    parent = parent->m_up;
+
+                    if (parent->m_right != NULL) {
+                        break;
+                    }
+                }
+
+                if (parent == NULL)
+                    m_node = NULL;
+                else
+                    m_node = parent->m_right;
+            //} else if (parent->m_right == m_node &&
+
+            // beende wenn du rechts von deinem oberen bist und unter dir nichts mehr ist
             return *this;
         }
 
+        // nach unten
         m_node = m_node->m_left;
         return *this;
     }
