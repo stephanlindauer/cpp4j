@@ -9,38 +9,50 @@ template <class T, template<class> class Order = Less > class Tree {
 
 public:
 
-    Tree():m_root(NULL),m_last(NULL) {}
+    Tree():m_root(NULL) {}
 
     typedef TreeIterator<T,Order> iterator;
     typedef TreeNode<T,Order> node;
 
     iterator insert(const T& value) {
 
-        if (m_root == NULL && m_last == NULL) {
+        if (m_root == NULL) {
             m_root = new node(value);
-            reset_last();
-            return iterator(m_root, this, iterator::begin);
-
+            return begin();
         } else {
-            const iterator i (m_root, this, iterator::begin);
-            iterator result = insert_internal (i, value);
-            reset_last();
-            return result;
-
+            return insert_internal (iterator (m_root, this), value);
         }
     }
 
     void clear() {
         // leaky-leaky
-        m_last = m_root = NULL;
+        m_root = NULL;
     }
 
+    // lowest key
     const iterator begin() const {
-        return iterator (m_root, this, m_root == NULL ? iterator::end : iterator::begin);
+        TreeNode<T, Order> * node = m_root;
+        while (node != NULL) {
+            if (node->m_left != NULL)
+                node = node->m_left;
+            else
+                break;
+        }
+
+        return iterator (node, this, node == NULL);
     }
 
+    // highest key
     const iterator end() const {
-        return iterator (m_last, this, iterator::end);
+        TreeNode<T, Order> * node = m_root;
+        while (node != NULL) {
+            if (node->m_right != NULL)
+                node = node->m_right;
+            else
+                break;
+        }
+
+        return iterator (node, this, true);
     }
 
     /*iterator first();
@@ -50,32 +62,12 @@ public:
 
 protected:
     TreeNode<T, Order> * m_root;
-    TreeNode<T, Order> * m_last;
-
-    void reset_last(void) {
-        TreeNode<T, Order> * t = m_root;
-        while (t != NULL) {
-
-            if (t->m_right == NULL) {
-                if (t->m_left == NULL) {
-                    break;
-
-                } else {
-                    t = t->m_left;
-                }
-
-            } else {
-                t = t->m_right;
-            }
-        }
-        m_last = t;
-    }
 
     iterator insert_internal(iterator i, const T& value) {
         Order<T> order;
 
         if (order(value, i.m_node->m_value)) { // links
-            iterator prev = iterator (i.m_node->m_left, this, iterator::middle);
+            iterator prev = iterator (i.m_node->m_left, this);
             if (prev.m_node == NULL) {
                 prev.m_node = new node(value);
                 prev.m_node->m_up = i.m_node;
@@ -87,7 +79,7 @@ protected:
 
 
         } else if (order(i.m_node->m_value, value)) { // rechts
-            iterator next = iterator (i.m_node->m_right, this, iterator::middle);
+            iterator next = iterator (i.m_node->m_right, this);
             if (next.m_node == NULL) {
                 next.m_node = new node(value);
                 next.m_node->m_up = i.m_node;
