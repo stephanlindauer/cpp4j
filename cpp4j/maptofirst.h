@@ -4,7 +4,7 @@
 #include "pair.h"
 
 //        int       string    less
-template <class T1, class T2, template<typename> class Order > class MapToFirst {
+template <class T1, class T2, template<class> class Order > class MapToFirst {
 
 public:
 

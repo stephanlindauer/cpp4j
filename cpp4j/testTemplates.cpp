@@ -96,13 +96,10 @@ int testTemplates(void)
     /////////////////////////////////////////
     // TEST TREE
 
-
-
     // construct empty tree
     Tree<int> t;
     cout << "empty tree: ";
     assert(printAndCount(t) == 0);
-    cout.flush();
 
     // insert elements in a certain order
     t.insert(4);
@@ -138,10 +135,18 @@ int testTemplates(void)
     cout << "6-element tree: ";
     assert(printAndCount(t) == 6);
 
-#if 0 // move this line down while your implementation proceeds...
+    // and yet another insertion sequence (compined from the above)
+    t.clear();
+    t.insert(8); t.insert(4); t.insert(3); t.insert(2); t.insert(1);
+    t.insert(5); t.insert(1); t.insert(2); t.insert(3); t.insert(5);
+    t.insert(4); t.insert(45); t.insert(4); t.insert(89); t.insert(9);
+    t.insert(7); t.insert(3);
+    cout << "10-element tree: ";
+    assert(printAndCount(t) == 10);
 
     // now we contruct a tree with a "reverse" order
-    typedef Tree< float, Greater<float> > RevFloatTree;
+    //typedef Tree< float, Greater<float> > RevFloatTree; // had to replace this line by the following
+    typedef Tree< float, Greater > RevFloatTree;
     RevFloatTree ft;
     ft.insert(3.1);
     ft.insert(6.2);
@@ -155,6 +160,7 @@ int testTemplates(void)
     cout << "listing backwards: ";
     assert(printAndCountBackwards(ft) == 4);
 
+#if 0 // move this line down while your implementation proceeds...
 
     /////////////////////////////////////////
     // TEST MAP
