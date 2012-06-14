@@ -50,8 +50,10 @@ int printAndCountBackwards(Container & c) {
     int n = 0;
     typename Container::iterator i = c.end();
     while(i != c.begin()) {
-        --i;
+        // had to swap the following two lines?
         cout << *i << " ";
+        --i;
+
         n++;
     }
     cout << endl;
@@ -152,8 +154,6 @@ int testTemplates(void)
     cout << "10-element tree: ";
     assert(printAndCount(t) == 10);
 
-#if 0 // move this line down while your implementation proceeds...
-
     // now we contruct a tree with a "reverse" order
     //typedef Tree< float, Greater<float> > RevFloatTree; // had to replace this line by the following
     typedef Tree< float, Greater > RevFloatTree;
@@ -165,10 +165,17 @@ int testTemplates(void)
     cout << "reverse-sorted 4-float tree: ";
     assert(printAndCount(ft) == 4);
 
+    RevFloatTree::iterator beginIt = ft.begin();
+    RevFloatTree::iterator endIt = ft.end();
+    cout << *beginIt;
+    cout << *endIt;
+
     // if we list elements backwards, they should be
     //   in the same order as with the function Less<>
     cout << "listing backwards: ";
     assert(printAndCountBackwards(ft) == 4);
+
+#if 0 // move this line down while your implementation proceeds...
 
     /////////////////////////////////////////
     // TEST MAP

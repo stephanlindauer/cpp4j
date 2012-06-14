@@ -32,12 +32,8 @@ public:
     // lowest key
     const iterator begin() const {
         TreeNode<T, Order> * node = m_root;
-        while (node != NULL) {
-            if (node->m_left != NULL)
-                node = node->m_left;
-            else
-                break;
-        }
+        while (node != NULL && node->m_left != NULL)
+            node = node->m_left;
 
         return iterator (node, this, node != NULL ? iterator::begin : iterator::end);
     }
@@ -45,12 +41,8 @@ public:
     // highest key
     const iterator end() const {
         TreeNode<T, Order> * node = m_root;
-        while (node != NULL) {
-            if (node->m_right != NULL)
-                node = node->m_right;
-            else
-                break;
-        }
+        while (node != NULL && node->m_right != NULL)
+            node = node->m_right;
 
         return iterator (node, this, iterator::end);
     }

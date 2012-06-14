@@ -68,7 +68,47 @@ public:
 
     // zum vorherigen Element
     TreeIterator<T, Order>& operator--() {
-        //if (m_node == NULL || !m_end)
+        if (m_node == NULL || m_mode == begin)
+            return *this;
+
+        m_mode == middle;
+
+        if (m_node->m_left != NULL) {
+            m_node = m_node->m_left;
+            while (m_node->m_right != NULL)
+                m_node = m_node->m_right;
+
+            return *this;
+        }
+
+        if (m_node->m_up != NULL) {
+            if (m_node->m_up->m_right == m_node) {
+                // wir kamen von rechts
+                m_node = m_node->m_up;
+                return *this;
+            }
+
+            TreeNode<T, Order> * node = m_node;
+
+            // wir kamen von links, also so lange nach oben, bis wir einen neuen linken Pfad haben
+            while (node->m_up->m_left == node) {
+
+                node = node->m_up;
+
+                if (node->m_up == NULL) { // reached root, nothing else to do
+                    m_mode = begin;
+                    return *this;
+                }
+
+            }
+
+            m_node = node->m_up;
+
+            return *this;
+
+        }
+
+        m_mode = end;
         return *this;
     }
 
