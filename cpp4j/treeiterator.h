@@ -21,8 +21,10 @@ public:
 
     // zum nächsten Element
     TreeIterator<T, Order>& operator++() {
-        if (m_node == NULL || m_end)
+        if (m_node == NULL || m_mode == end)
             return *this;
+
+        m_mode = middle;
 
         if (m_node->m_right != NULL) {
             m_node = m_node->m_right;
@@ -47,7 +49,7 @@ public:
                 node = node->m_up;
 
                 if (node->m_up == NULL) { // reached root, nothing else to do
-                    m_end = true;
+                    m_mode = end;
                     return *this;
                 }
 
@@ -59,18 +61,19 @@ public:
 
         }
 
-        m_end = true;
+        m_mode = end;
         return *this;
 
     }
 
     // zum vorherigen Element
     TreeIterator<T, Order>& operator--() {
+        //if (m_node == NULL || !m_end)
         return *this;
     }
 
     bool operator==(const TreeIterator<T, Order> &rhs) const {
-        return this->m_node == rhs.m_node && this->m_tree == rhs.m_tree && this->m_end == rhs.m_end;
+        return this->m_node == rhs.m_node && this->m_tree == rhs.m_tree && this->m_mode == rhs.m_mode;
     }
 
     bool operator!=(const TreeIterator<T, Order> &rhs) const {
@@ -79,18 +82,19 @@ public:
 
 protected:
 
-    TreeIterator(TreeNode<T, Order> * node, const Tree<T, Order> * tree)
-        : m_node(node), m_tree(tree), m_end(false) {}
+    enum iteration_mode { begin, middle, end };
+    iteration_mode m_mode;
 
-    TreeIterator(TreeNode<T, Order> * node, const Tree<T, Order> * tree, const bool end)
-        : m_node(node), m_tree(tree), m_end(end) {}
+    TreeIterator(TreeNode<T, Order> * node, const Tree<T, Order> * tree)
+        : m_node(node), m_tree(tree), m_mode(middle) {}
+
+    TreeIterator(TreeNode<T, Order> * node, const Tree<T, Order> * tree, const iteration_mode mode)
+        : m_node(node), m_tree(tree), m_mode(mode) {}
 
 private:
 
     TreeNode<T, Order> * m_node;
     const Tree<T, Order> * m_tree;
-    bool m_end;
-
 };
 
 #endif // TREEITERATOR_H

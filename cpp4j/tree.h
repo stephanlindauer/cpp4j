@@ -39,7 +39,7 @@ public:
                 break;
         }
 
-        return iterator (node, this, node == NULL);
+        return iterator (node, this, node != NULL ? iterator::begin : iterator::end);
     }
 
     // highest key
@@ -52,7 +52,7 @@ public:
                 break;
         }
 
-        return iterator (node, this, true);
+        return iterator (node, this, iterator::end);
     }
 
     /*iterator first();
