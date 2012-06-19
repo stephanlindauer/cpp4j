@@ -1,0 +1,8 @@
+Steering Behaviors
+
+- 2d Zeichenfläche
+- XML-HTTP-Abfrage nach random.org
+- Radiobuttons für Auswahl von internem Zufallszahlengenerator vs. random.org
+- Speicherung der Einstellung (Anzahl von Vögeln, Radiobutton-Settings)
+- aktuelle Position der Vögel
+- Konfiguration soll human-readable sein

@@ -48,11 +48,13 @@ public:
     }
 
     const iterator first() const {
-        return begin();
+        const iterator i = begin();
+        return iterator (i.m_node, this);
     }
 
     const iterator last() const {
-        return end();
+        const iterator i = end();
+        return iterator (i.m_node, this);
     }
 
     iterator find(const T& value) {
