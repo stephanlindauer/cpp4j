@@ -1,10 +1,10 @@
 #ifndef TREENODE_H
 #define TREENODE_H
 
-template <class T, template<typename> class Order > class Tree;
-template <class T, template<typename> class Order > class TreeIterator;
+template <class T, class Order > class Tree;
+template <class T, class Order > class TreeIterator;
 
-template <class T, template<typename> class Order > class TreeNode {
+template <class T, class Order > class TreeNode {
 
     friend class Tree<T, Order>;
     friend class TreeIterator<T, Order>;
@@ -16,7 +16,7 @@ public:
     }
 
     TreeNode<T, Order>* find(const T& value) {
-        Order<T> order; //less<int>
+        Order order; //less<int>
         if (order(m_value, value))
             return m_left->find(value);
 

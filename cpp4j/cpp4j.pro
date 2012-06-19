@@ -16,7 +16,8 @@ HEADERS += greater.h \
            rationalnumberarray.h \
            tree.h \
            treeiterator.h \
-           treenode.h
+           treenode.h \
+    map.h
 SOURCES += rationalnumber.cpp \
            rationalnumberarray.cpp \
            testMain.cpp \

@@ -7,24 +7,17 @@ template <class T1, class T2> class Pair {
 
 public :
 
-    Pair  ():
-        m_first(),
-        m_second()
-    { }
+    Pair  (): m_first(), m_second() { }
 
-    Pair (T1 firstParam, T2 secondParam):
-        m_first(firstParam),
-        m_second(secondParam)
-    { }
+    Pair (T1 firstParam, T2 secondParam): m_first(firstParam), m_second(secondParam) { }
 
-    Pair (Pair <T1,T2>& otherPair):
-        m_first(otherPair.first()),
-        m_second(otherPair.second())
-    { }
+    Pair (const Pair <T1,T2>& otherPair): m_first(otherPair.first()), m_second(otherPair.second()) { }
+    Pair (Pair <T1,T2>& otherPair): m_first(otherPair.first()), m_second(otherPair.second()) { }
 
-    Pair& operator=
-    (const Pair &right){
-        return Pair(right.first(), right.second());
+    Pair& operator= (const Pair &right){
+        m_first = right.first();
+        m_second = right.second();
+        return *this;
     }
 
     friend ostream& operator<< (ostream &os, const Pair<T1,T2>& pair){
@@ -50,7 +43,7 @@ public :
 
 private:
 
-    T1 m_first ;
+    T1 m_first;
     T2 m_second;
 
 };

@@ -19,7 +19,7 @@ using namespace std;
 #include "maptofirst.h"
 //#include "order.h"
 #include "tree.h"
-//#include "map.h"
+#include "map.h"
 
 // you should define your own namespace for
 // the templates/classes in this project
@@ -91,7 +91,7 @@ int testTemplates(void)
 
     /////////////////////////////////////////
     // TEST PAIR ORDER
-    MapToFirst< int, float, Less > lessPair;
+    MapToFirst< int, float, Less<int> > lessPair;
     cout << i_f << " < " << i_f2 << " == " << lessPair(i_f, i_f2) << endl;
     assert(lessPair(i_f, i_f2));
 
@@ -156,7 +156,7 @@ int testTemplates(void)
 
     // now we contruct a tree with a "reverse" order
     //typedef Tree< float, Greater<float> > RevFloatTree; // had to replace this line by the following
-    typedef Tree< float, Greater > RevFloatTree;
+    typedef Tree< float, Greater<float> > RevFloatTree;
     RevFloatTree ft;
     ft.insert(3.1);
     ft.insert(6.2);
@@ -165,17 +165,10 @@ int testTemplates(void)
     cout << "reverse-sorted 4-float tree: ";
     assert(printAndCount(ft) == 4);
 
-    RevFloatTree::iterator beginIt = ft.begin();
-    RevFloatTree::iterator endIt = ft.end();
-    cout << *beginIt;
-    cout << *endIt;
-
     // if we list elements backwards, they should be
     //   in the same order as with the function Less<>
     cout << "listing backwards: ";
     assert(printAndCountBackwards(ft) == 4);
-
-#if 0 // move this line down while your implementation proceeds...
 
     /////////////////////////////////////////
     // TEST MAP
@@ -186,8 +179,7 @@ int testTemplates(void)
     Pair<int,string> p7(7,"James Bond");
     string value;
 
-    Map<int,string, MapToFirst<int,string,Less> > m;
-
+    Map<int,string, MapToFirst<int, string, Less<int> > > m;
     // insert pairs of (key,value)
     m.insert(p42);
     m.insert(p7);
@@ -204,6 +196,8 @@ int testTemplates(void)
     cout << "setting m[3] and m[1]." << endl;
     m[1] = p1.second();
     m[3] = p3.second();
+    cout << "find 1 in map: " << (value=m[1]) << endl;
+    assert(value == p1.second());
     cout << "find 3 in map: " << (value=m[3]) << endl;
     assert(value == p3.second());
 
@@ -211,14 +205,17 @@ int testTemplates(void)
     assert(printAndCount(m) == 4);
 
     // test first() and last(), min() and max()
-    Map<int,string>::iterator first = m.first();
-    Map<int,string>::iterator last = m.last();
+    Map<int,string, MapToFirst<int, string, Less<int> > >::iterator first = m.first();
+    Map<int,string, MapToFirst<int, string, Less<int> > >::iterator last = m.last();
     cout << "first in map: " << *first << endl;
     cout << "last in map: " << *last << endl;
     assert(first->first() == 1);
     assert(last->first() == 42);
     assert(m.min() == first->first());
     assert(m.max() == last->first());
+
+#if 0 // move this line down while your implementation proceeds...
+
 
 #endif
 
